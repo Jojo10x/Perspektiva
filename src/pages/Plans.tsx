@@ -145,6 +145,10 @@ const Plans = () => {
     (total, dayPlans) => total + dayPlans.length,
     0
   );
+  const completedPlans = Object.values(plans).reduce(
+    (total, dayPlans) => total + dayPlans.filter(plan => plan.completed).length,
+    0
+  );
 
   return (
     <div className={styles.plans__container}>
@@ -152,7 +156,7 @@ const Plans = () => {
       <div className={styles.plans__progress_bar}>
         <div
           className={styles.plans__progress}
-          style={{ width: `${(totalPlans / 7) * 100}%` }}
+          style={{ width: `${totalPlans > 0 ? (completedPlans / totalPlans) * 100 : 0}%` }}
         ></div>
       </div>
       {daysOfWeek.map((day) => (
