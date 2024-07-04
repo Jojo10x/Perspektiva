@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Firebase-config";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { auth } from "../../Firebase-config";
 import styles from "../styles/Plans.module.scss";
 import Link from "next/link";
 import "./globals.css";
-
-
+import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const daysOfWeek = [
   "Monday",
@@ -30,6 +30,10 @@ const Plans = () => {
     }[];
   }>({});
   const [user, setUser] = useState<any>(null);
+  const [currentWeek, setCurrentWeek] = useState<{ start: Date; end: Date }>({
+    start: startOfWeek(new Date(), { weekStartsOn: 1 }),
+    end: endOfWeek(new Date(), { weekStartsOn: 1 }),
+  });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -42,14 +46,25 @@ const Plans = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentWeek]);
+
+  useEffect(() => {
+    fetchPlans(user?.uid);
+  }, [user, currentWeek]);
 
   const fetchPlans = async (uid: string) => {
+    if (!uid) return;
     const plansData: any = {};
-    const querySnapshot = await getDocs(collection(db, "plans"));
+    const weekQuery = query(
+      collection(db, "plans"),
+      where("uid", "==", uid),
+      where("date", ">=", currentWeek.start),
+      where("date", "<=", currentWeek.end)
+    );
+    const querySnapshot = await getDocs(weekQuery);
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      const day = data.day;
+      const day = format(data.date.toDate(), "EEEE");
       if (!plansData[day]) plansData[day] = [];
       plansData[day].push({
         id: doc.id,
@@ -64,10 +79,12 @@ const Plans = () => {
   };
 
   const addPlan = async (day: string, task: string) => {
+    const date = getDateForDay(day, currentWeek.start);
     const docRef = await addDoc(collection(db, "plans"), {
       day,
       task,
       completed: false,
+      date,
       uid: user?.uid,
     });
     setPlans((prevPlans) => ({
@@ -141,6 +158,11 @@ const Plans = () => {
     }));
   };
 
+  const getDateForDay = (day: string, startOfWeek: Date): Date => {
+    const dayIndex = daysOfWeek.indexOf(day);
+    return addDays(startOfWeek, dayIndex);
+  };
+
   const totalPlans = Object.values(plans).reduce(
     (total, dayPlans) => total + dayPlans.length,
     0
@@ -150,19 +172,53 @@ const Plans = () => {
     0
   );
 
+  const goToNextWeek = () => {
+    setCurrentWeek((prevWeek) => ({
+      start: addDays(prevWeek.start, 7),
+      end: addDays(prevWeek.end, 7),
+    }));
+  };
+
+  const goToPreviousWeek = () => {
+    setCurrentWeek((prevWeek) => ({
+      start: addDays(prevWeek.start, -7),
+      end: addDays(prevWeek.end, -7),
+    }));
+  };
+
+
   return (
     <div className={styles.plans__container}>
+        <Breadcrumb />
       <h1 className={styles.plans__header}>Weekly Plans</h1>
       <div className={styles.plans__progress_bar}>
         <div
           className={styles.plans__progress}
-          style={{ width: `${totalPlans > 0 ? (completedPlans / totalPlans) * 100 : 0}%` }}
-        ></div>
+          style={{
+            width: `${
+              totalPlans > 0 ? (completedPlans / totalPlans) * 100 : 0
+            }%`,
+          }}
+        >  <span className={styles.plans__progress__label}>
+        {totalPlans > 0 ? `${Math.round((completedPlans / totalPlans) * 100)}%` : '0%'}
+      </span>
+
+        </div>
+      </div>
+      <div className={styles.plans__navigation}>
+        <button onClick={goToPreviousWeek}>Previous Week</button>
+        <span>
+          {format(currentWeek.start, "MMM dd")} -{" "}
+          {format(currentWeek.end, "MMM dd")}
+        </span>
+        <button onClick={goToNextWeek}>Next Week</button>
       </div>
       {daysOfWeek.map((day) => (
         <div key={day} className={styles.plans__day}>
           <div className={styles.plans__day_header}>
-            <h2>{day}</h2>
+            <h2>
+              {day} - {format(getDateForDay(day, currentWeek.start), "MMM dd")}
+            </h2>
           </div>
           <ul className={styles.plans__tasks}>
             {plans[day]?.map((plan) => (
@@ -236,14 +292,8 @@ const Plans = () => {
         </div>
       ))}
       <div className="flex space-x-4">
-        <Link
-          href="/Login"
-          className="bg-blue-500 text-white py-2 px-4 rounded"
-        >
-          Login Page
-        </Link>
-        <Link href="/" className="bg-blue-500 text-white py-2 px-4 rounded">
-          Main Page
+        <Link href="/History" className={styles.plans__history_button}>
+        <span>History</span>
         </Link>
       </div>
     </div>
