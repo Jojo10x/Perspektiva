@@ -1,5 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { useState } from 'react';
+import styles from "../styles/Habit.module.scss";
 
 interface Habit {
   name: string;
@@ -37,22 +38,22 @@ const HabitTracker: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-        <Breadcrumb />
-      <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Habit Tracker</h1>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Habit Name</label>
+    <div className={styles.container}>
+      <Breadcrumb />
+      <div className={styles.card}>
+        <h1 className={styles.title}>Habit Tracker</h1>
+        <div className={styles.inputGroup}>
+          <label className={styles.label}>Habit Name</label>
           <input
             type="text"
             value={habitName}
             onChange={(e) => setHabitName(e.target.value)}
-            className="mt-1 p-2 w-full border rounded"
+            className={styles.input}
           />
         </div>
         {daysOfWeek.map((day, index) => (
-          <div className="mb-4" key={day}>
-            <label className="block text-sm font-medium text-gray-700 mb-2">{day}</label>
+          <div className={styles.inputGroup} key={day}>
+            <label className={styles.label}>{day}</label>
             <input
               type="number"
               value={dailyHours[index]}
@@ -61,28 +62,25 @@ const HabitTracker: React.FC = () => {
                 newDailyHours[index] = e.target.value ? Number(e.target.value) : 0;
                 setDailyHours(newDailyHours);
               }}
-              className="mt-1 p-2 w-full border rounded"
+              className={styles.input}
             />
           </div>
         ))}
-        <button
-          onClick={handleAddHabit}
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-        >
+        <button onClick={handleAddHabit} className={styles.button}>
           Add Habit
         </button>
-        <div className="mt-6">
-          <h2 className="text-xl font-bold mb-4">Habits</h2>
-          <ul>
+        <div className={styles.habitsSection}>
+          <h2 className={styles.subtitle}>Habits</h2>
+          <ul className={styles.habitList}>
             {habits.map((habit, habitIndex) => (
-              <li key={habitIndex} className="mb-4">
-                <div className="flex flex-col">
-                  <span className="font-semibold">{habit.name}</span>
-                  <div className="mt-2">
+              <li key={habitIndex} className={styles.habitItem}>
+                <div className={styles.habitContent}>
+                  <span className={styles.habitName}>{habit.name}</span>
+                  <div className={styles.daysGrid}>
                     {daysOfWeek.map((day, dayIndex) => (
-                      <div key={dayIndex} className="flex justify-between items-center">
-                        <span>{day}:</span>
-                        <div className="flex items-center">
+                      <div key={dayIndex} className={styles.dayRow}>
+                        <span className={styles.dayName}>{day}:</span>
+                        <div className={styles.hoursInput}>
                           <span>{habit.dailyHours[dayIndex]} hours</span>
                           <input
                             type="number"
@@ -90,20 +88,22 @@ const HabitTracker: React.FC = () => {
                             onChange={(e) =>
                               handleCompleteHoursChange(habitIndex, dayIndex, e.target.value ? Number(e.target.value) : 0)
                             }
-                            className="ml-4 p-1 w-20 border rounded"
+                            className={styles.completedInput}
                           />
-                          <span className="ml-2">completed</span>
+                          <span>completed</span>
                         </div>
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-between mt-2">
-                    <span>Total weekly hours:</span>
-                    <span>{calculateTotalHoursPerWeek(habit.dailyHours, habit.completedHours)} hours</span>
-                  </div>
-                  <div className="flex justify-between mt-1">
-                    <span>Total monthly hours:</span>
-                    <span>{calculateTotalHoursPerMonth(habit.dailyHours, habit.completedHours)} hours</span>
+                  <div className={styles.totalHours}>
+                    <div>
+                      <span>Total weekly hours:</span>
+                      <span>{calculateTotalHoursPerWeek(habit.dailyHours, habit.completedHours)} hours</span>
+                    </div>
+                    <div>
+                      <span>Total monthly hours:</span>
+                      <span>{calculateTotalHoursPerMonth(habit.dailyHours, habit.completedHours)} hours</span>
+                    </div>
                   </div>
                 </div>
               </li>
