@@ -1,7 +1,7 @@
 // ProgressBar.tsx
 
 import React from 'react';
-import styles from '../styles/ProgressBar.module.scss'; // Adjust the import as per your styling approach
+import styles from '../../styles/ProgressBar.module.scss'; // Adjust the import as per your styling approach
 
 interface ProgressBarProps {
   currentCompleted: number;

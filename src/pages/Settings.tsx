@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import "./globals.css";
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 
 const SettingsPage: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <Breadcrumb />
       <div>
         <h1 className="text-4xl font-bold mb-4">Settings Page</h1>
         <div className="flex space-x-4">

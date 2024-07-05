@@ -1,3 +1,4 @@
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { useState } from 'react';
 
 interface Habit {
@@ -37,6 +38,7 @@ const HabitTracker: React.FC = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
+        <Breadcrumb />
       <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
         <h1 className="text-2xl font-bold mb-4">Habit Tracker</h1>
         <div className="mb-4">
