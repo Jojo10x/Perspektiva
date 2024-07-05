@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { breadcrumbsData } from "./BreadcrumbsData";
-import styles from "../styles/Breadcrumb.module.scss";
+import styles from "../../styles/Breadcrumb.module.scss";
 
 const Breadcrumb = () => {
   const router = useRouter();

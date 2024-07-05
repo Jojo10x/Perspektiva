@@ -12,7 +12,7 @@ import { format, isSameDay, isSameWeek, isSameMonth } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
-import Breadcrumb from "@/components/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 const History = () => {
     const [tasks, setTasks] = useState<any[]>([]);
     const [filter, setFilter] = useState("all");

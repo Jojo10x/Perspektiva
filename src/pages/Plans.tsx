@@ -7,7 +7,7 @@ import styles from "../styles/Plans.module.scss";
 import Link from "next/link";
 import "./globals.css";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
-import Breadcrumb from "@/components/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 const daysOfWeek = [
   "Monday",

@@ -1,18 +1,13 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
 import "./globals.css";
-import HabitTracker from '@/pages/Habit';
-import Navbar from '@/components/Navbar';
+import HomeView from "@/components/HomeView/HomeView";
 
 const MainPage: React.FC = () => {
   return (
     <>
-      <Navbar />
+      <HomeView />
     </>
   );
 };
 
 export default MainPage;
-
-
-// https://codepen.io/suez/pen/gPRjBo
