@@ -2,6 +2,7 @@ import {  onAuthStateChanged} from 'firebase/auth'
 import { auth} from '../../../Firebase-config'
 import styles from "../../styles/Name.module.scss";
 import { useEffect, useState } from 'react';
+import DisplayName from '../DisplayName/DisplayName';
 const Name = () => {
   const [user, setUser] = useState(null);
 
@@ -18,24 +19,18 @@ const Name = () => {
     }
   }
   return (
-    <div  className={styles["login-containe"]}>
-    <h2 className={styles["main-title"]}>
+    <div className={styles.loginContainer}>
+    <h2 className={styles.mainTitle}>
       Hello
       <span
         className={styles["waving-hand"]}
         role="img"
         aria-label="waving hand"
       >
-        👋
+        👋 
       </span>
+        <span className={styles.displayName}><DisplayName /></span>
     </h2>
-    {user && (
-      <div className={styles.loggedInMessage}>
-        <h2 className={`${styles.title} ${styles.animatedEmoji}`}>
-          {/* Welcome {user} 🎉 */}
-        </h2>
-      </div>
-    )}
     </div>
   );
 };
