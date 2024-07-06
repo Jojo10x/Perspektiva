@@ -3,6 +3,10 @@ import styles from '../../styles/HomeView.module.scss';
 import Link from 'next/link';
 import QuoteRotator from '../Quotes/QuoteRotator';
 import Name from '../Name/Name';
+import HabitText from '../HomeViews/Habit/HabitText';
+import PlansText from '../HomeViews/Plans/PlansText';
+import SettingsText from '../HomeViews/SettingsView/SettingsText';
+import AboutText from '../HomeViews/About/AboutText';
 
 const HomeView: React.FC = () => {
     useEffect(() => {
@@ -110,9 +114,7 @@ const HomeView: React.FC = () => {
         <h1><Name/></h1>
         <h3><QuoteRotator/></h3>
         <div className={styles['et-hero-tabs-container']}>
-          <a className={styles['et-hero-tab']} href="#tab-es6">
-            About
-          </a>
+          
           <a className={styles['et-hero-tab']} href="#tab-flexbox">
             Habit
           </a>
@@ -122,49 +124,34 @@ const HomeView: React.FC = () => {
           <a className={styles['et-hero-tab']} href="#tab-angular">
             Settings
           </a>
-          <a className={styles['et-hero-tab']} href="#tab-other">
-            Other
+          <a className={styles['et-hero-tab']} href="#tab-es6">
+            About
           </a>
+          {/* <a className={styles['et-hero-tab']} href="#tab-other">
+            Other
+          </a> */}
           <span className={styles['et-hero-tab-slider']}></span>
         </div>
       </section>
 
       <main className={styles['et-main']}>
-        <section className={styles['et-slide']} id="tab-es6">
-          <h1>About</h1>
-          <h3>something about es6</h3>
-        </section>
+       
         <section className={styles['et-slide']} id="tab-flexbox">
-          <h1>Habit</h1>
-          <h3>something about flexbox</h3>
-          <Link
-                  href="/Habit"
-                >
-                  Habit
-                </Link>
+        <HabitText/>
         </section>
         <section className={styles['et-slide']} id="tab-react">
-          <h1>Plans</h1>
-          <h3>something about react</h3>
-          <Link
-                  href="/Plans"
-                >
-                  Plans
-                </Link>
+        <PlansText/>
         </section>
         <section className={styles['et-slide']} id="tab-angular">
-          <h1>Settings</h1>
-          <h3>something about angular</h3>
-          <Link
-                  href="/Settings"
-                >
-                  Settings
-                </Link>
+        <SettingsText/>
         </section>
-        <section className={styles['et-slide']} id="tab-other">
+        <section className={styles['et-slide']} id="tab-es6">
+        <AboutText/>
+        </section>
+        {/* <section className={styles['et-slide']} id="tab-other">
           <h1>Other</h1>
           <h3>something about other</h3>
-        </section>
+        </section> */}
       </main>
     </div>
   );

@@ -4,11 +4,20 @@ import styles from "../../styles/Name.module.scss";
 import { useEffect, useState } from 'react';
 import DisplayName from '../DisplayName/DisplayName';
 const Name = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
+  const [showName, setShowName] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
-    return unsubscribe;
+    
+    const timer = setTimeout(() => {
+      setShowName(true);
+    }, 5000);
+
+    return () => {
+      unsubscribe();
+      clearTimeout(timer);
+    };
   }, []);
 
   async function initializeUser(user: any) {
@@ -18,20 +27,21 @@ const Name = () => {
       setUser(null);
     }
   }
+  
   return (
     <div className={styles.loginContainer}>
-    <h2 className={styles.mainTitle}>
-      Hello
-      <span
-        className={styles["waving-hand"]}
-        role="img"
-        aria-label="waving hand"
-      >
-        👋 
-      </span>
+    {!showName ? (
+      <h1 className={styles.perspektiva}>Perspektiva</h1>
+    ) : (
+      <h2 className={styles.mainTitle}>
+        Hello{' '}
+        <span className={styles["waving-hand"]} role="img" aria-label="waving hand">
+          👋
+        </span>{' '}
         <span className={styles.displayName}><DisplayName /></span>
-    </h2>
-    </div>
+      </h2>
+    )}
+  </div>
   );
 };
 
