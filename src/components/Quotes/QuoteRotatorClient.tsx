@@ -18,7 +18,7 @@ const QuoteRotatorClient: React.FC = () => {
     setIsLoading(false);
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-    }, 3600000); 
+    }, 10000); 
 
     return () => clearInterval(interval);
   }, [quotes.length]);
