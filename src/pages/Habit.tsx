@@ -1,25 +1,45 @@
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { useState } from 'react';
 import styles from "../styles/Habit.module.scss";
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where,Timestamp } from "firebase/firestore";
+import { db } from '../../Firebase-config';
+import Link from 'next/link';
+import "./globals.css";
+import { daysOfWeek } from '../app/constants';
 
 interface Habit {
   name: string;
   dailyHours: number[];
   completedHours: number[];
+  createdAt: Timestamp;
 }
 
-const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+interface StoredHabit extends Habit {
+  id: string;
+}
 
 const HabitTracker: React.FC = () => {
-  const [habits, setHabits] = useState<Habit[]>([]);
+  const [habits, setHabits] = useState<StoredHabit[]>([]);
   const [habitName, setHabitName] = useState('');
   const [dailyHours, setDailyHours] = useState<number[]>(Array(7).fill(0));
 
-  const handleAddHabit = () => {
+  const handleAddHabit = async () => {
     if (habitName && dailyHours.some(hours => hours > 0)) {
-      setHabits([...habits, { name: habitName, dailyHours, completedHours: Array(7).fill(0) }]);
-      setHabitName('');
-      setDailyHours(Array(7).fill(0));
+      const newHabit: Habit = {
+        name: habitName,
+        dailyHours,
+        completedHours: Array(7).fill(0),
+        createdAt: Timestamp.now()
+      };
+
+      try {
+        const docRef = await addDoc(collection(db, 'habits'), newHabit);
+        setHabits([...habits, { ...newHabit, id: docRef.id }]);
+        setHabitName('');
+        setDailyHours(Array(7).fill(0));
+      } catch (error) {
+        console.error("Error adding habit: ", error);
+      }
     }
   };
 
@@ -110,6 +130,11 @@ const HabitTracker: React.FC = () => {
             ))}
           </ul>
         </div>
+        <div className="flex space-x-4">
+        <Link href="/HabitList" className={styles.plans__history_button}>
+        <span>Habit List</span>
+        </Link>
+      </div>
       </div>
     </div>
   );
