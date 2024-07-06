@@ -21,6 +21,32 @@
         opacity: 0.6;
     }
 }
+@media (min-width: 320px) {
+    .et-hero-tabs,
+    .et-slide {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+        background: #f0f4f8;
+            text-align: center;
+            padding: 0 1em;
+        h1 {
+            font-size: 1rem;
+            margin: 0;
+        }
+        h3 {
+            font-size: 1rem;
+            letter-spacing: 0.3rem;
+            opacity: 0.6;
+        }
+    }
+ 
+   
+      
+    }
 
 .et-hero-tabs-container {
     display: flex;

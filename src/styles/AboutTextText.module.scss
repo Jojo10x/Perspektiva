@@ -95,4 +95,20 @@
     .section {
       flex: 0 1 calc(50% - 0.5rem);
     }
+
   }
+
+  @media (min-width: 320px) {
+
+  
+  }
+  @media (max-width: 375px) {
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+      }
+ 
+      
+    }

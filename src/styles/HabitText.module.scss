@@ -86,10 +86,44 @@
   
   @media (max-width: 768px) {
     .features {
-      flex-direction: column;
+      flex-direction: row;
     }
     
     .feature {
       margin-bottom: 1.5rem;
     }
   }
+
+  @media (max-width: 375px) {
+
+ 
+  .description{
+    display: none;
+  }
+  .button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 1rem 1rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .feature {
+
+    padding: 0.1rem;
+  }
+  
+    
+  }
+
+  @media (max-width: 425px) {
+
+   .description{
+    display: none;
+   }
+      
+    }
