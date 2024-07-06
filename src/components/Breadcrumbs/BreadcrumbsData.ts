@@ -12,5 +12,6 @@ export const breadcrumbsData: BreadcrumbsData = {
   "/History": [{ name: "Home", path: "/" }, { name: "Plans", path: "/Plans" }, { name: "History" }],
   "/Habit": [{ name: "Home", path: "/" }, { name: "Habit" }],
   "/Plans": [{ name: "Home", path: "/" }, { name: "Plans" }],
-  "/Settings": [{ name: "Home", path: "/" }, { name: "Settings" }]
+  "/Settings": [{ name: "Home", path: "/" }, { name: "Settings" }],
+  "/HabitList": [{ name: "Home", path: "/" },{ name: "Habit", path: "/Habit" }, { name: "HabitList", path: "/HabitList" }]
 };
