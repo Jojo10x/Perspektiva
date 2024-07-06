@@ -9,9 +9,9 @@ interface BreadcrumbsData {
 
 export const breadcrumbsData: BreadcrumbsData = {
   "/": [{ name: "Home" }],
-  "/History": [{ name: "Home", path: "/" }, { name: "Plans", path: "/Plans" }, { name: "History" }],
-  "/Habit": [{ name: "Home", path: "/" }, { name: "Habit" }],
-  "/Plans": [{ name: "Home", path: "/" }, { name: "Plans" }],
-  "/Settings": [{ name: "Home", path: "/" }, { name: "Settings" }],
-  "/HabitList": [{ name: "Home", path: "/" },{ name: "Habit", path: "/Habit" }, { name: "HabitList", path: "/HabitList" }]
+  "/history": [{ name: "Home", path: "/" }, { name: "Plans", path: "/plans" }, { name: "History" }],
+  "/habit": [{ name: "Home", path: "/" }, { name: "Habit" }],
+  "/plans": [{ name: "Home", path: "/" }, { name: "Plans" }],
+  "/settings": [{ name: "Home", path: "/" }, { name: "Settings" }],
+  "/habitlist": [{ name: "Home", path: "/" },{ name: "Habit", path: "/habit" }, { name: "Habitlist", path: "/habitList" }]
 };

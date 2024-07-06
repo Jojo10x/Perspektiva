@@ -27,7 +27,7 @@ const HabitText = () => {
         helps you establish, monitor, and maintain beneficial routines that will improve your life. 
         Start small, stay consistent, and watch as your life transforms through the power of good habits.
       </p>
-      <Link href="/Habit" className={styles.button}>
+      <Link href="/habit" className={styles.button}>
         Start Your Habit Journey
       </Link>
     </div>

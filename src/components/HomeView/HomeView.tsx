@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styles from '../../styles/HomeView.module.scss';
-import Link from 'next/link';
 import QuoteRotator from '../Quotes/QuoteRotator';
 import Name from '../Name/Name';
 import HabitText from '../HomeViews/Habit/HabitText';

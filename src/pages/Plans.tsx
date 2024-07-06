@@ -54,32 +54,60 @@ const Plans = () => {
     fetchPlans(user?.uid);
   }, [user, currentWeek]);
 
-  const fetchPlans = async (uid: string) => {
-    if (!uid) return;
-    const plansData: any = {};
-    const weekQuery = query(
-      collection(db, "plans"),
-      where("uid", "==", uid),
-      where("date", ">=", currentWeek.start),
-      where("date", "<=", currentWeek.end)
-    );
-    const querySnapshot = await getDocs(weekQuery);
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const day = format(data.date.toDate(), "EEEE");
-      if (!plansData[day]) plansData[day] = [];
-      plansData[day].push({
-        id: doc.id,
-        task: data.task,
-        completed: data.completed,
-        editing: false,
-        newTask: data.task,
-        starred: data.starred || false,
-      });
-    });
-    console.log("Fetched plans:", plansData);
-    setPlans(plansData);
-  };
+const fetchPlans = async (uid: string) => {
+  if (!uid) return;
+  const plansData: { [key: string]: Plan[] } = {};
+  const favoritePlans: Plan[] = [];
+
+  const weekQuery = query(
+    collection(db, "plans"),
+    where("uid", "==", uid),
+    where("date", ">=", currentWeek.start),
+    where("date", "<=", currentWeek.end)
+  );
+  const weekQuerySnapshot = await getDocs(weekQuery);
+  weekQuerySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const day = format(data.date.toDate(), "EEEE");
+    if (!plansData[day]) plansData[day] = [];
+    const plan: Plan = {
+      id: doc.id,
+      task: data.task,
+      completed: data.completed,
+      editing: false,
+      newTask: data.task,
+      starred: false,
+    };
+    plansData[day].push(plan);
+    if (plan.starred) {
+      favoritePlans.push(plan);
+    }
+  });
+
+  const starredQuery = query(
+    collection(db, "plans"),
+    where("uid", "==", uid),
+    where("starred", "==", true)
+  );
+  const starredQuerySnapshot = await getDocs(starredQuery);
+  starredQuerySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const plan: Plan = {
+      id: doc.id,
+      task: data.task,
+      completed: data.completed,
+      editing: false,
+      newTask: data.task,
+      starred: data.starred || false,
+    };
+    favoritePlans.push(plan);
+  });
+
+  console.log("Fetched plans:", plansData);
+  setPlans(plansData);
+  setFavoritePlans(favoritePlans);
+};
+
 
   const addPlan = async (day: string, task: string) => {
     const date = getDateForDay(day, currentWeek.start);
@@ -361,7 +389,7 @@ const Plans = () => {
         </ul>
       </div>
       <div className="flex space-x-4">
-        <Link href="/History" className={styles.plans__history_button}>
+        <Link href="/history" className={styles.plans__history_button}>
           <span>History</span>
         </Link>
       </div>

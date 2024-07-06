@@ -27,7 +27,7 @@ const SettingsText = () => {
       From adjusting your profile details to fine-tuning notifications and 
       personalizing the app's appearance, make the app truly yours.
     </p>
-    <Link href="/Settings" className={styles.button}>
+    <Link href="/settings" className={styles.button}>
       Customize Your Settings
     </Link>
   </div>

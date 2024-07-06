@@ -242,7 +242,7 @@ const HabitList = () => {
           );
         })}
       </ul>
-      <Link href="/Habit" className={styles.plans__history_button}>
+      <Link href="/habit" className={styles.plans__history_button}>
         <span>Habit</span>
       </Link>
     </div>
