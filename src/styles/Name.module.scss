@@ -54,15 +54,6 @@
   animation: fadeIn 1s ease-in-out;
 }
 
-.mainTitle::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #ff6b6b, #feca57);
-}
 
 .displayName {
   display: inline-block;
@@ -78,3 +69,4 @@
   transform: scale(1.05);
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
+

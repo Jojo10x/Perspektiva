@@ -319,3 +319,68 @@
     }
   }
 }
+.favoritePlans {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  &__item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__task {
+    font-size: 18px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 12px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+    }
+  }
+}

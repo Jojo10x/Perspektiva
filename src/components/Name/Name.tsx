@@ -34,10 +34,10 @@ const Name = () => {
       <h1 className={styles.perspektiva}>Perspektiva</h1>
     ) : (
       <h2 className={styles.mainTitle}>
-        Hello{' '}
+        Hello
         <span className={styles["waving-hand"]} role="img" aria-label="waving hand">
           👋
-        </span>{' '}
+        </span>
         <span className={styles.displayName}><DisplayName /></span>
       </h2>
     )}

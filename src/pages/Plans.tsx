@@ -18,22 +18,24 @@ const daysOfWeek = [
   "Saturday",
   "Sunday",
 ];
+type Plan = {
+  id: string;
+  task: string;
+  completed: boolean;
+  editing: boolean;
+  newTask: string;
+  starred: boolean;
+};
+
 
 const Plans = () => {
-  const [plans, setPlans] = useState<{
-    [key: string]: {
-      id: string;
-      task: string;
-      completed: boolean;
-      editing: boolean;
-      newTask: string;
-    }[];
-  }>({});
+  const [plans, setPlans] = useState<{ [key: string]: Plan[] }>({});
   const [user, setUser] = useState<any>(null);
   const [currentWeek, setCurrentWeek] = useState<{ start: Date; end: Date }>({
     start: startOfWeek(new Date(), { weekStartsOn: 1 }),
     end: endOfWeek(new Date(), { weekStartsOn: 1 }),
   });
+  const [favoritePlans, setFavoritePlans] = useState<Plan[]>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -72,6 +74,7 @@ const Plans = () => {
         completed: data.completed,
         editing: false,
         newTask: data.task,
+        starred: data.starred || false,
       });
     });
     console.log("Fetched plans:", plansData);
@@ -86,6 +89,7 @@ const Plans = () => {
       completed: false,
       date,
       uid: user?.uid,
+      starred: false,
     });
     setPlans((prevPlans) => ({
       ...prevPlans,
@@ -97,9 +101,40 @@ const Plans = () => {
           completed: false,
           editing: false,
           newTask: task,
+          starred: false,
         },
       ],
     }));
+  };
+  const toggleStarPlan = async (day: string, planId: string) => {
+    const plan = plans[day]?.find((p) => p.id === planId);
+
+    if (!plan) {
+      console.error(`Plan with id ${planId} not found for day ${day}`);
+      return;
+    }
+
+    const updatedPlan = { ...plan, starred: !plan.starred };
+
+    const docRef = doc(db, "plans", planId);
+    await updateDoc(docRef, { starred: updatedPlan.starred });
+
+    setPlans((prevPlans) => ({
+      ...prevPlans,
+      [day]: prevPlans[day].map((p) => (p.id === planId ? updatedPlan : p)),
+    }));
+
+    if (updatedPlan.starred) {
+      setFavoritePlans([...favoritePlans, updatedPlan]);
+    } else {
+      setFavoritePlans(
+        favoritePlans.filter((favPlan) => favPlan.id !== planId)
+      );
+    }
+  };
+
+  const addFavoritePlanToDay = (favoritePlan: Plan, day: string) => {
+    addPlan(day, favoritePlan.task);
   };
 
   const completePlan = async (day: string, id: string, completed: boolean) => {
@@ -168,7 +203,8 @@ const Plans = () => {
     0
   );
   const completedPlans = Object.values(plans).reduce(
-    (total, dayPlans) => total + dayPlans.filter(plan => plan.completed).length,
+    (total, dayPlans) =>
+      total + dayPlans.filter((plan) => plan.completed).length,
     0
   );
 
@@ -186,10 +222,9 @@ const Plans = () => {
     }));
   };
 
-
   return (
     <div className={styles.plans__container}>
-        <Breadcrumb />
+      <Breadcrumb />
       <h1 className={styles.plans__header}>Weekly Plans</h1>
       <div className={styles.plans__progress_bar}>
         <div
@@ -199,10 +234,13 @@ const Plans = () => {
               totalPlans > 0 ? (completedPlans / totalPlans) * 100 : 0
             }%`,
           }}
-        >  <span className={styles.plans__progress__label}>
-        {totalPlans > 0 ? `${Math.round((completedPlans / totalPlans) * 100)}%` : '0%'}
-      </span>
-
+        >
+          {" "}
+          <span className={styles.plans__progress__label}>
+            {totalPlans > 0
+              ? `${Math.round((completedPlans / totalPlans) * 100)}%`
+              : "0%"}
+          </span>
         </div>
       </div>
       <div className={styles.plans__navigation}>
@@ -273,6 +311,16 @@ const Plans = () => {
                     >
                       Delete
                     </button>
+                    <button
+                      onClick={() => toggleStarPlan(day, plan.id)}
+                      className={
+                        plan.starred
+                          ? styles.plans__task_starred
+                          : styles.plans__task_star
+                      }
+                    >
+                      {plan.starred ? "★" : "☆"}
+                    </button>
                   </>
                 )}
               </li>
@@ -291,9 +339,30 @@ const Plans = () => {
           />
         </div>
       ))}
+      <div className={styles.favoritePlans}>
+        <h2 className={styles.favoritePlans__title}>Favorite Plans</h2>
+        <ul className={styles.favoritePlans__list}>
+          {favoritePlans.map((favPlan) => (
+            <li key={favPlan.id} className={styles.favoritePlans__item}>
+              <span className={styles.favoritePlans__task}>{favPlan.task}</span>
+              <div className={styles.favoritePlans__buttons}>
+                {daysOfWeek.map((day) => (
+                  <button
+                    key={`${favPlan.id}-${day}`}
+                    onClick={() => addFavoritePlanToDay(favPlan, day)}
+                    className={styles.favoritePlans__button}
+                  >
+                    {day}
+                  </button>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="flex space-x-4">
         <Link href="/History" className={styles.plans__history_button}>
-        <span>History</span>
+          <span>History</span>
         </Link>
       </div>
     </div>
