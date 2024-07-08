@@ -30,7 +30,7 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
     if (!uid) return;
     const plansData: { [key: string]: Plan[] } = {};
     const favoritePlans: Plan[] = [];
-    console.log("Fetching plans for date range:", currentWeek.start, "to", currentWeek.end);
+
 
     const weekQuery = query(
       collection(db, "plans"),
@@ -41,7 +41,6 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
     const weekQuerySnapshot = await getDocs(weekQuery);
     weekQuerySnapshot.forEach((doc) => {
       const data = doc.data();
-      console.log("Fetched plan:", data);
       const day = format(data.date.toDate(), "EEEE");
       if (!plansData[day]) plansData[day] = [];
       const plan: Plan = {
@@ -77,14 +76,12 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
       favoritePlans.push(plan);
     });
 
-    console.log("Fetched plans:", plansData);
     setPlans(plansData);
     setFavoritePlans(favoritePlans);
   };
 
   const addPlan = async (day: string, task: string) => {
     const date = getDateForDay(day, currentWeek.start);
-    console.log("date",date)
     const docRef = await addDoc(collection(db, "plans"), {
       day,
       task,
@@ -107,7 +104,6 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
         [day]: updatedDay,
       };
     });
-    console.log("Adding plan for day:", day);
 console.log("Current plans state:", plans);
   };
   const toggleStarPlan = async (day: string, planId: string) => {
@@ -162,7 +158,6 @@ console.log("Current plans state:", plans);
   };
 
   const editPlan = (day: string, id: string) => {
-    console.log(`Editing plan: day=${day}, id=${id}`);
     setPlans((prevPlans) => ({
       ...prevPlans,
       [day]: prevPlans[day].map((plan) =>
