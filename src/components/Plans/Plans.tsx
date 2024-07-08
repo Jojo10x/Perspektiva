@@ -1,86 +1,36 @@
-import { useState, useEffect } from "react";
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { db } from "../../Firebase-config";
-import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { auth } from "../../Firebase-config";
-import styles from "../styles/Plans.module.scss";
-import Link from "next/link";
-import "./globals.css";
-import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { daysOfWeek } from "../types/constants";
-import FavoritePlans from "../components/Plans/FavourtitePlans/FavoritePlans";
-import DayPlans from "../components/Plans/DayPlans/DayPlans";
-import ProgressBar from "../components/Plans/ProgressBar/ProgressBar";
-import WeekNavigation from "../components/Plans/WeekNavigation/WeekNavigation";
-import { usePlans } from '../contexts/Plans/PlansContext';
-import { useWeekNavigation } from '../types/useWeekNavigation';
-import { getDateForDay, calculateTotalPlans, calculateCompletedPlans } from '../utils/utils';
-import { useFirebasePlans } from "@/types/useFirebasePlans";
+// import { useState, useEffect } from "react";
+// import {
+//   collection,
+//   addDoc,
+//   updateDoc,
+//   deleteDoc,
+//   doc,
+//   getDocs,
+//   query,
+//   where,
+// } from "firebase/firestore";
+// import { db } from "../../../Firebase-config";
+// import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+// import { auth } from "../../../Firebase-config";
+// import styles from "../../styles/Plans.module.scss";
+// import Link from "next/link";
+// import "./globals.css";
+// import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
+// import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+// import { daysOfWeek } from "../../types/constants";
+// import FavoritePlans from "./FavoritePlans";
+// import DayPlans from "./DayPlans";
+// import ProgressBar from "./ProgressBar";
+// import WeekNavigation from "./WeekNavigation";
 
-const Plans = () => {
-  const { currentWeek, goToNextWeek, goToPreviousWeek } = useWeekNavigation();
-  const {
-    plans,
-    favoritePlans,
-    addPlan,
-    toggleStarPlan,
-    completePlan,
-    deletePlan,
-    savePlan,
-    editPlan
-  } = useFirebasePlans(currentWeek);
-
-  const totalPlans = calculateTotalPlans(plans);
-  const completedPlans = calculateCompletedPlans(plans);
-
-  return (
-    <div className={styles.plans__container}>
-      <Breadcrumb />
-      <h1 className={styles.plans__header}>Weekly Plans</h1>
-      <ProgressBar totalPlans={totalPlans} completedPlans={completedPlans} />
-      <WeekNavigation
-        currentWeek={currentWeek}
-        onNextWeek={goToNextWeek}
-        onPreviousWeek={goToPreviousWeek}
-      />
-      {daysOfWeek.map((day: string) => (
-        <DayPlans
-          key={day}
-          day={day}
-          date={getDateForDay(day, currentWeek.start)}
-          plans={plans[day] || []}
-          onAddPlan={addPlan}
-          onEditPlan={editPlan}
-          onSavePlan={savePlan}
-          onCompletePlan={completePlan}
-          onDeletePlan={deletePlan}
-          onToggleStarPlan={toggleStarPlan}
-        />
-      ))}
-      <FavoritePlans
-        favoritePlans={favoritePlans}
-        onAddFavoritePlanToDay={(favoritePlan, day) => addPlan(day, favoritePlan.task)}
-      />
-      <div className="flex space-x-4">
-        <Link href="/history" className={styles.plans__history_button}>
-          <span>History</span>
-        </Link>
-      </div>
-    </div>
-  );
-};
-
-export default Plans;
+// type Plan = {
+//   id: string;
+//   task: string;
+//   completed: boolean;
+//   editing: boolean;
+//   newTask: string;
+//   starred: boolean;
+// };
 
 // const Plans = () => {
 //   const [plans, setPlans] = useState<{ [key: string]: Plan[] }>({});
@@ -313,7 +263,7 @@ export default Plans;
 //         onNextWeek={goToNextWeek}
 //         onPreviousWeek={goToPreviousWeek}
 //       />
-//       {daysOfWeek.map((day:string) => (
+//       {daysOfWeek.map((day) => (
 //         <DayPlans
 //           key={day}
 //           day={day}

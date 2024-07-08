@@ -16,7 +16,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { daysOfWeek } from '../app/constants';
+import { daysOfWeek } from '../types/constants';
 
 interface Habit {
     id: string;
@@ -242,7 +242,7 @@ const HabitList = () => {
           );
         })}
       </ul>
-      <Link href="/Habit" className={styles.plans__history_button}>
+      <Link href="/habit" className={styles.plans__history_button}>
         <span>Habit</span>
       </Link>
     </div>

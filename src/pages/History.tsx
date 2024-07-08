@@ -112,7 +112,7 @@ const History = () => {
             </li>
           ))}
         </ul>
-        <Link href="/Plans" className={styles.plans__history_button}>
+        <Link href="/plans" className={styles.plans__history_button}>
         <span>Main</span>
         </Link>
       </div>

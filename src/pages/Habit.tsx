@@ -5,7 +5,7 @@ import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where,Ti
 import { db } from '../../Firebase-config';
 import Link from 'next/link';
 import "./globals.css";
-import { daysOfWeek } from '../app/constants';
+import { daysOfWeek } from '../types/constants';
 
 interface Habit {
   name: string;
@@ -131,7 +131,7 @@ const HabitTracker: React.FC = () => {
           </ul>
         </div>
         <div className="flex space-x-4">
-        <Link href="/HabitList" className={styles.plans__history_button}>
+        <Link href="/habitlist" className={styles.plans__history_button}>
         <span>Habit List</span>
         </Link>
       </div>

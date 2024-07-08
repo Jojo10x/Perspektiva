@@ -1,0 +1,131 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    border-radius: 10px;
+  }
+  
+  .title {
+    font-size: 3rem;
+    color: #343a40;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  
+  .subtitle {
+    font-size: 1.4rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+  }
+  
+  .feature {
+    flex: 1;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .feature:hover {
+    transform: translateY(-5px);
+  }
+  
+  .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .iconCalendar::before { content: '📅'; }
+  .iconTarget::before { content: '🎯'; }
+  .iconChart::before { content: '📊'; }
+  
+  .feature h4 {
+    font-size: 1.2rem;
+    color: #495057;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature p {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+  
+  .description {
+    font-size: 1.1rem;
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .features {
+      flex-direction: row;
+    }
+    
+    .feature {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+ 
+  @media (max-width: 375px) {
+
+ 
+    .description{
+      display: none;
+    }
+    .button {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      padding: 1rem 1rem;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+    .feature {
+
+      padding: 0.1rem;
+    }
+    
+      
+    }
+
+    @media (max-width: 425px) {
+
+      .description{
+       display: none;
+      }
+         
+       }

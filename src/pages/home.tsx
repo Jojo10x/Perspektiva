@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import styles from '../../styles/HomeView.module.scss';
-import QuoteRotator from '../Quotes/QuoteRotator';
-import Name from '../Name/Name';
-import HabitText from '../HomeViews/Habit/HabitText';
-import PlansText from '../HomeViews/Plans/PlansText';
-import SettingsText from '../HomeViews/SettingsView/SettingsText';
-import AboutText from '../HomeViews/About/AboutText';
+import styles from '../styles/HomeView.module.scss';
+import QuoteRotator from '../components/Quotes/QuoteRotator';
+import Name from '../components/Name/Name';
+import HabitText from '../components/HomeViews/Habit/HabitText';
+import PlansText from '../components/HomeViews/Plans/PlansText';
+import SettingsText from '../components/HomeViews/SettingsView/SettingsText';
+import AboutText from '../components/HomeViews/About/AboutText';
 
 const HomeView: React.FC = () => {
     useEffect(() => {

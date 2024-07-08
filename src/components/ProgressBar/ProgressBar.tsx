@@ -14,10 +14,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     previousCompleted,
     previousTotal,
   }) => {
-    console.log("ProgressBar Props:", { currentCompleted, previousCompleted, previousTotal });
-  
+
     const percentage = previousTotal > 0 ? (currentCompleted / previousCompleted) * 100 : 0;
-    console.log("ProgressBar Percentage:", percentage);
   
     return (
       <div className={styles.progress_bar}>
