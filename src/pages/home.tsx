@@ -6,6 +6,7 @@ import HabitText from '../components/HomeViews/Habit/HabitText';
 import PlansText from '../components/HomeViews/Plans/PlansText';
 import SettingsText from '../components/HomeViews/SettingsView/SettingsText';
 import AboutText from '../components/HomeViews/About/AboutText';
+import GoalsText from '@/components/HomeViews/Goals/Goals';
 
 const HomeView: React.FC = () => {
     useEffect(() => {
@@ -120,15 +121,16 @@ const HomeView: React.FC = () => {
           <a className={styles['et-hero-tab']} href="#tab-react">
             Plans
           </a>
+          <a className={styles['et-hero-tab']} href="#tab-other">
+            Goals
+          </a>
           <a className={styles['et-hero-tab']} href="#tab-angular">
             Settings
           </a>
           <a className={styles['et-hero-tab']} href="#tab-es6">
             About
           </a>
-          {/* <a className={styles['et-hero-tab']} href="#tab-other">
-            Other
-          </a> */}
+          
           <span className={styles['et-hero-tab-slider']}></span>
         </div>
       </section>
@@ -141,16 +143,15 @@ const HomeView: React.FC = () => {
         <section className={styles['et-slide']} id="tab-react">
         <PlansText/>
         </section>
+        <section className={styles['et-slide']} id="tab-other">
+          <GoalsText/>
+        </section>
         <section className={styles['et-slide']} id="tab-angular">
         <SettingsText/>
         </section>
         <section className={styles['et-slide']} id="tab-es6">
         <AboutText/>
         </section>
-        {/* <section className={styles['et-slide']} id="tab-other">
-          <h1>Other</h1>
-          <h3>something about other</h3>
-        </section> */}
       </main>
     </div>
   );

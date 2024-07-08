@@ -15,6 +15,11 @@ const AboutText = () => {
           <h3>Life Planner</h3>
           <p>Organize your goals and create actionable plans to achieve your dreams.</p>
         </div>
+        <div className={styles.section}>
+          <i className={`${styles.icon} ${styles.iconClarity}`}></i>
+          <h3>Create Goals</h3>
+          <p>Align goals across life areas.</p>
+        </div>
       </div>
       <div className={styles.mission}>
         <h3>Our Mission</h3>

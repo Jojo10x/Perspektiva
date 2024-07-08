@@ -34,6 +34,7 @@
   
   .iconHabit::before { content: '🌱'; }
   .iconPlan::before { content: '📝'; }
+  .iconClarity::before { content: '🎯'; }
   
   .section h3 {
     font-size: 1.2rem;
@@ -102,12 +103,10 @@
 
   
   }
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
 
     .content {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
+       display: none;
       }
  
       
