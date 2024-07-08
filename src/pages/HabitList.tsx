@@ -16,7 +16,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { daysOfWeek } from '../app/constants';
+import { daysOfWeek } from '../types/constants';
 
 interface Habit {
     id: string;

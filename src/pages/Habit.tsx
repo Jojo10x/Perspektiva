@@ -5,7 +5,7 @@ import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where,Ti
 import { db } from '../../Firebase-config';
 import Link from 'next/link';
 import "./globals.css";
-import { daysOfWeek } from '../app/constants';
+import { daysOfWeek } from '../types/constants';
 
 interface Habit {
   name: string;
