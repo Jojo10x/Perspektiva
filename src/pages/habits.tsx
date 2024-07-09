@@ -2,44 +2,55 @@ import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { useState } from 'react';
 import styles from "../styles/Habit.module.scss";
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where,Timestamp } from "firebase/firestore";
-import { db } from '../../Firebase-config';
+import { db,auth } from '../../Firebase-config';
 import Link from 'next/link';
 import "./globals.css";
 import { daysOfWeek } from '../types/constants';
+import Modal from '@/components/Modal/Modal';
 
 interface Habit {
   name: string;
   dailyHours: number[];
   completedHours: number[];
   createdAt: Timestamp;
+  userId:string;
 }
 
 interface StoredHabit extends Habit {
   id: string;
+  
+ 
 }
 
 const HabitTracker: React.FC = () => {
   const [habits, setHabits] = useState<StoredHabit[]>([]);
   const [habitName, setHabitName] = useState('');
   const [dailyHours, setDailyHours] = useState<number[]>(Array(7).fill(0));
+  const [modalInfo, setModalInfo] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  
 
   const handleAddHabit = async () => {
-    if (habitName && dailyHours.some(hours => hours > 0)) {
+    const user = auth.currentUser;
+    if (habitName && dailyHours.some(hours => hours > 0) && user) {
       const newHabit: Habit = {
         name: habitName,
         dailyHours,
         completedHours: Array(7).fill(0),
-        createdAt: Timestamp.now()
+        createdAt: Timestamp.now(),
+        userId: user.uid
       };
 
       try {
-        const docRef = await addDoc(collection(db, 'habits'), newHabit);
-        setHabits([...habits, { ...newHabit, id: docRef.id }]);
+        await addDoc(collection(db, 'habits'), newHabit);
         setHabitName('');
         setDailyHours(Array(7).fill(0));
+        setModalInfo({ message: 'Habit added successfully!', type: 'success' });
       } catch (error) {
         console.error("Error adding habit: ", error);
+        setModalInfo({ message: 'Failed to add habit. Please try again.', type: 'error' });
       }
+    }else {
+      setModalInfo({ message: 'Please enter a habit name and at least one daily hour.', type: 'error' });
     }
   };
 
@@ -55,6 +66,9 @@ const HabitTracker: React.FC = () => {
     const updatedHabits = [...habits];
     updatedHabits[habitIndex].completedHours[dayIndex] = value;
     setHabits(updatedHabits);
+  };
+  const closeModal = () => {
+    setModalInfo(null);
   };
 
   return (
@@ -130,6 +144,9 @@ const HabitTracker: React.FC = () => {
             ))}
           </ul>
         </div>
+        {modalInfo && (
+        <Modal message={modalInfo.message} type={modalInfo.type} onClose={closeModal} />
+      )}
         <div className="flex space-x-4">
         <Link href="/habitlist" className={styles.plans__history_button}>
         <span>Habit List</span>

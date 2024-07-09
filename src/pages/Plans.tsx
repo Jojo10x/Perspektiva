@@ -26,6 +26,7 @@ import { usePlans } from '../contexts/Plans/PlansContext';
 import { useWeekNavigation } from '../types/useWeekNavigation';
 import { getDateForDay, calculateTotalPlans, calculateCompletedPlans } from '../utils/utils';
 import { useFirebasePlans } from "@/types/useFirebasePlans";
+import Loader from "@/components/Loader/Loader";
 
 const Plans = () => {
   const { currentWeek, goToNextWeek, goToPreviousWeek } = useWeekNavigation();
@@ -37,11 +38,16 @@ const Plans = () => {
     completePlan,
     deletePlan,
     savePlan,
-    editPlan
+    editPlan,
+    loading
   } = useFirebasePlans(currentWeek);
 
   const totalPlans = calculateTotalPlans(plans);
   const completedPlans = calculateCompletedPlans(plans);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.plans__container}>
@@ -64,8 +70,7 @@ const Plans = () => {
           onSavePlan={savePlan}
           onCompletePlan={completePlan}
           onDeletePlan={deletePlan}
-          onToggleStarPlan={toggleStarPlan}
-        />
+          onToggleStarPlan={toggleStarPlan}        />
       ))}
       <FavoritePlans
         favoritePlans={favoritePlans}
