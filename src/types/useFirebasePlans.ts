@@ -12,12 +12,13 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
     const [user, setUser] = useState<any>(null);
     const [plans, setPlans] = useState<PlansState>({});
     const [favoritePlans, setFavoritePlans] = useState<Plan[]>([]);
+    const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        fetchPlans(user.uid);
+        fetchPlans(user.uid).then(() => setLoading(false));
       } else {
         signInAnonymously(auth);
       }
@@ -25,6 +26,7 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
 
     return () => unsubscribe();
   }, [currentWeek]);
+  
 
   const fetchPlans = async (uid: string) => {
     if (!uid) return;
@@ -196,8 +198,10 @@ console.log("Current plans state:", plans);
     completePlan,
     deletePlan,
     savePlan,
+    loading,
   };
 };
+
 
 const getDateForDay = (day: string, startOfWeek: Date): Date => {
   const dayIndex = daysOfWeek.indexOf(day);

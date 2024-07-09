@@ -1,4 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #3a86ff;
+  --secondary-color: #ff006e;
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --card-background: #ffffff;
+  --success-color: #38b000;
+  --danger-color: #d00000;
+}
 
 $font-f-primary: "Nunito", sans-serif;
 $font-f-secondary: "Inter", sans-serif;

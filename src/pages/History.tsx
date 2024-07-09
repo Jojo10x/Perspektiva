@@ -13,18 +13,21 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/Loader/Loader";
 const History = () => {
     const [tasks, setTasks] = useState<any[]>([]);
     const [filter, setFilter] = useState("all");
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          fetchTasks(user.uid);
+          fetchTasks(user.uid).then (() => setLoading(false));
         } else {
           signInAnonymously(auth);
+          
         }
       });
   
@@ -48,9 +51,12 @@ const History = () => {
           date: data.date ? data.date.toDate() : new Date(),
         });
       });
-      console.log("Fetched tasks:", tasksData);
       setTasks(tasksData);
     };
+
+    if (loading) {
+      return <Loader />;
+    }
   
     const filterTasks = (tasks: any[]) => {
       if (filter === "all") {
