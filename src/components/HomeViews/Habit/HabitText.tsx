@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "../../../styles/HabitText.module.scss";
+import Button from "@/components/Button/Button";
 const HabitText = () => {
   return (
 <div className={styles.container}>
@@ -27,8 +28,8 @@ const HabitText = () => {
         helps you establish, monitor, and maintain beneficial routines that will improve your life. 
         Start small, stay consistent, and watch as your life transforms through the power of good habits.
       </p>
-      <Link href="/habits" className={styles.button}>
-        Start Your Habit Journey
+      <Link href="/habits" >  
+        <Button content="HABITS"> Start Your Habit Journey</Button>
       </Link>
     </div>
   );

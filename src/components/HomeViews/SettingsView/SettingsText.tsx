@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "../../../styles/SettingsText.module.scss";
+import Button from "@/components/Button/Button";
 const SettingsText = () => {
   return (
     <div className={styles.container}>
@@ -27,8 +28,8 @@ const SettingsText = () => {
       From adjusting your profile details to fine-tuning notifications and 
       personalizing the app's appearance, make the app truly yours.
     </p>
-    <Link href="/settings" className={styles.button}>
-      Customize Your Settings
+    <Link href="/settings">
+      <Button content="SETTINGS"> Customize Your Settings</Button>
     </Link>
   </div>
 );

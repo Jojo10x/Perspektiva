@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "../../../styles/PlansText.module.scss";
+import Button from "@/components/Button/Button";
 const PlansText = () => {
     return (
       <div className={styles.container}>
@@ -27,8 +28,8 @@ const PlansText = () => {
           organizing your work projects, planning a vacation, or mapping out your 
           five-year goals, our Plans page has got you covered.
         </p>
-        <Link href="/plans" className={styles.button}>
-          Start Planning Now
+        <Link href="/plans" >
+          <Button content="PLANS"> Start Planning Now</Button>
         </Link>
       </div>
     );

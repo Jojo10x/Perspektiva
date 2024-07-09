@@ -1,0 +1,99 @@
+.button_49,
+.button_49:after {
+  padding: 15px; 
+  font-size: 1rem; 
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(45deg, transparent 5%, #FF013C 5%);
+  border: 0;
+  color: #fff;
+  letter-spacing: 0.1em; 
+  box-shadow: 0.375em 0 0 #00E6F6;
+  outline: transparent;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  text-transform: uppercase;
+  display: inline-block; 
+}
+
+.button_49:after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -0.375em 0 0); 
+  --slice-2: inset(50% -0.375em 30% 0);
+  --slice-3: inset(10% -0.375em 85% 0);
+  --slice-4: inset(40% -0.375em 43% 0);
+  --slice-5: inset(80% -0.375em 5% 0);
+
+  content:attr(data-content);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 3%, #00E6F6 3%, #00E6F6 5%, #FF013C 5%);
+  text-shadow: -0.1875em -0.1875em 0 #F8F005, 0.1875em 0.1875em 0 #00E6F6;
+  clip-path: var(--slice-0);
+}
+
+.button_49:hover:after {
+  animation: 2s glitch;
+  animation-timing-function: steps(2, end);
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-1.25em, -0.625em); 
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(0.625em, 0.625em);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-0.625em, 0.625em);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0, 0.3125em);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-0.3125em, 0);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(0.3125em, 0);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(0.3125em, 0.625em);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-0.625em, 0.625em);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(1.25em, -0.625em);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-0.625em, 0);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .button_49,
+  .button_49:after {
+    padding: 15ppx; 
+    font-size: 1.5rem;
+  }
+}
+
