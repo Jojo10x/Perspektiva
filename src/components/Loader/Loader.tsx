@@ -5,7 +5,7 @@ const Loader: React.FC = () => {
   return (
     
     <div className={styles.loader_container}>
-    <PacmanLoader color="#36d7b7" loading={true} size={70} />
+    <PacmanLoader color="black" loading={true} size={70} />
   </div>
   );
 };

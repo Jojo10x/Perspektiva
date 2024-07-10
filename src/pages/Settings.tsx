@@ -6,6 +6,7 @@ import { updateProfile} from 'firebase/auth'
 import { useEffect, useState } from 'react';
 import styles from "../styles/Settings.module.scss";
 import LogOut from '@/components/LogOut/LogOut';
+import Button from '@/components/Button/Button';
 
 const SettingsPage: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
@@ -45,8 +46,8 @@ const SettingsPage: React.FC = () => {
     <div className={styles.container}>
     <Breadcrumb />
     <div className={styles.content}>
-      <h1 className={styles.title}>Settings Page</h1>
-      <p className={styles.currentName}>Current Display Name: {displayName}</p>
+      <h1 className={styles.title}>Settings</h1>
+      <p className={styles.currentName}>Current Name: {displayName}</p>
       <div className={styles.updateSection}>
         <input 
           type="text" 
@@ -55,12 +56,9 @@ const SettingsPage: React.FC = () => {
           className={styles.input}
           placeholder="New Display Name"
         />
-        <button 
-          onClick={updateDisplayName}
-          className={styles.button}
-        >
-          Update Name
-        </button>
+        <Button content='Update'  className={styles.button} onClick={updateDisplayName}>
+        Update Name
+        </Button>
       </div>
       
       <LogOut/>

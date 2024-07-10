@@ -1,44 +1,94 @@
+import { useState } from "react";
 import styles from "../../../styles/Plans.module.scss";
-import {daysOfWeek} from "../../../types/constants"
+import { daysOfWeek } from "../../../types/constants";
+import { FaHeart, FaPlus, FaTimes } from "react-icons/fa";
+import Button from "@/components/Button/Button";
 
 type Plan = {
-    id: string;
-    task: string;
-    completed: boolean;
-    editing: boolean;
-    newTask: string;
-    starred: boolean;
+  id: string;
+  task: string;
+  completed: boolean;
+  editing: boolean;
+  newTask: string;
+  starred: boolean;
+};
+
+interface FavoritePlan {
+  id: string;
+  task: string;
+}
+interface FavoritePlansProps {
+  favoritePlans: Plan[];
+  onAddFavoritePlanToDay: (plan: FavoritePlan, day: string) => void;
+}
+
+const FavoritePlans: React.FC<FavoritePlansProps> = ({
+  favoritePlans,
+  onAddFavoritePlanToDay,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<FavoritePlan | null>(null);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPlan(null);
   };
 
-interface FavoritePlansProps {
-    favoritePlans: Plan[];
-    onAddFavoritePlanToDay: (favoritePlan: Plan, day: string) => void;
-  }
-  
-  const FavoritePlans: React.FC<FavoritePlansProps> = ({ favoritePlans, onAddFavoritePlanToDay }) => {
-    return (
-      <div className={styles.favoritePlans}>
-        <h2 className={styles.favoritePlans__title}>Favorite Plans</h2>
-        <ul className={styles.favoritePlans__list}>
-          {favoritePlans.map((favPlan) => (
-            <li key={favPlan.id} className={styles.favoritePlans__item}>
-              <span className={styles.favoritePlans__task}>{favPlan.task}</span>
-              <div className={styles.favoritePlans__buttons}>
-                {daysOfWeek.map((day) => (
-                  <button
-                    key={`${favPlan.id}-${day}`}
-                    onClick={() => onAddFavoritePlanToDay(favPlan, day)}
-                    className={styles.favoritePlans__button}
-                  >
-                    {day}
-                  </button>
-                ))}
+  return (
+    <>
+      <Button content=" Favorites" className={styles.favoritePlansButton} onClick={openModal}>
+        Favorites
+      </Button>
+
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <button className={styles.closeButton} onClick={closeModal}>
+              <FaTimes />
+            </button>
+            <h2 className={styles.title}>
+              <FaHeart className={styles.titleIcon} />
+              Favorite Plans
+            </h2>
+            <div className={styles.planGrid}>
+              {favoritePlans.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={`${styles.planItem} ${
+                    selectedPlan?.id === plan.id ? styles.selected : ""
+                  }`}
+                  onClick={() => setSelectedPlan(plan)}
+                >
+                  <span className={styles.planTask}>{plan.task}</span>
+                  <FaPlus className={styles.addIcon} />
+                </div>
+              ))}
+            </div>
+            {selectedPlan && (
+              <div className={styles.selectedPlanDetails}>
+                <h3>Add "{selectedPlan.task}" to:</h3>
+                <div className={styles.dayButtons}>
+                  {daysOfWeek.map((day) => (
+                    <button
+                      key={day}
+                      className={styles.dayButton}
+                      onClick={() => {
+                        onAddFavoritePlanToDay(selectedPlan, day);
+                        closeModal();
+                      }}
+                    >
+                      {day}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
-  
-  export default FavoritePlans;
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default FavoritePlans;
