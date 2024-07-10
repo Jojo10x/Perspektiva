@@ -7,6 +7,7 @@ import {auth, db} from '../../Firebase-config';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import Loader from '@/components/Loader/Loader';
 import { User, onAuthStateChanged } from 'firebase/auth';
+import Button from '@/components/Button/Button';
 interface Goal {
   id: string;
   title: string;
@@ -133,9 +134,12 @@ export default function Goals() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <button onClick={() => setIsModalOpen(true)} className={styles.addButton}>
+        {/* <button onClick={() => setIsModalOpen(true)} className={styles.addButton}>
           New Goal
-        </button>
+        </button> */}
+         <Button onClick={() => setIsModalOpen(true)} className={styles.addButton} content='GOALS' >
+         New Goal
+        </Button>
       </header>
 
       <nav className={styles.filterNav}>

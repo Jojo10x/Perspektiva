@@ -35,7 +35,7 @@ interface PlanItemProps {
               onBlur={() => onSave(day, plan.id, newTask)}
             />
             <button onClick={() => onSave(day, plan.id, newTask)} className={styles.plans__task_button}>
-              Save
+            💾
             </button>
           </>
         ) : (
@@ -44,13 +44,13 @@ interface PlanItemProps {
               {plan.task}
             </span>
             <button onClick={() => onEdit(day, plan.id)} className={styles.plans__task_edit}>
-              Edit
+            ✏️
             </button>
             <button onClick={() => onComplete(day, plan.id, plan.completed)} className={styles.plans__task_button}>
-              {plan.completed ? "Undo" : "Complete"}
+            {plan.completed ? "↩️" : "✅"}
             </button>
             <button onClick={() => onDelete(day, plan.id)} className={styles.plans__task_delete}>
-              Delete
+            🗑️
             </button>
             <button onClick={() => onToggleStar(day, plan.id)} className={plan.starred ? styles.plans__task_starred : styles.plans__task_star}>
               {plan.starred ? "★" : "☆"}
