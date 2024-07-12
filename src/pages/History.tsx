@@ -7,13 +7,13 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../Firebase-config";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import styles from "../styles/History.module.scss";
+import styles from "../styles/components/History/History.module.scss";
 import { format, isSameDay, isSameWeek, isSameMonth } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import Loader from "@/components/Loader/Loader";
+import Breadcrumb from "@/components/common/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader/Loader";
 const History = () => {
     const [tasks, setTasks] = useState<any[]>([]);
     const [filter, setFilter] = useState("all");

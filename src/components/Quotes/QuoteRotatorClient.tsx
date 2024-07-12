@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import styles from '../../styles/QuoteRotator.module.scss';
+import styles from '../../styles/components/Quote/QuoteRotator.module.scss';
 import quotesData from './quotes.json';
 
 interface Quote {

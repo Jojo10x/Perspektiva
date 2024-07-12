@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import styles from '../styles/HomeView.module.scss';
+import styles from '../../src/styles/components/Home/HomeView.module.scss';
 import QuoteRotator from '../components/Quotes/QuoteRotator';
-import Name from '../components/Name/Name';
+import Name from '../components/common/Name/Name';
 import HabitText from '../components/HomeViews/Habit/HabitText';
 import PlansText from '../components/HomeViews/Plans/PlansText';
 import SettingsText from '../components/HomeViews/SettingsView/SettingsText';

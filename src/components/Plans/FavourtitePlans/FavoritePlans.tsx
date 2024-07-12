@@ -1,8 +1,8 @@
 import { useState } from "react";
-import styles from "../../../styles/Plans.module.scss";
+import styles from "../../../styles/components/Plans/Plans.module.scss";
 import { daysOfWeek } from "../../../types/constants";
 import { FaHeart, FaPlus, FaTimes } from "react-icons/fa";
-import Button from "@/components/Button/Button";
+import Button from "@/components/common/Button/Button";
 
 type Plan = {
   id: string;

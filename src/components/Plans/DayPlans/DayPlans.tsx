@@ -1,6 +1,6 @@
 import PlanItem from '../PlanItem/PlanItem';
 import NewPlanInput from '../NewPlan/NewPlanInput';
-import styles from "../../../styles/Plans.module.scss";
+import styles from "../../../styles/components/Plans/Plans.module.scss";
 import { format } from "date-fns";
 import {Plan} from '../../../types/types'
 

@@ -1,4 +1,4 @@
-import  styles from '../../styles/Button.module.scss';
+import  styles from '../../../styles/components/Button/Button.module.scss';
 import classNames from 'classnames';
 
 type ButtonProps = {

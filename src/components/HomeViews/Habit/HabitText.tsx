@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "../../../styles/HabitText.module.scss";
-import Button from "@/components/Button/Button";
+import styles from "../../../styles/components/Texts/HabitText.module.scss";
+import Button from "@/components/common/Button/Button";
 const HabitText = () => {
   return (
 <div className={styles.container}>

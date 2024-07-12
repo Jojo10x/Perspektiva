@@ -1,5 +1,5 @@
 import { format, addDays } from 'date-fns';
-import styles from "../../../styles/Plans.module.scss";
+import styles from "../../../styles/components/Plans/Plans.module.scss";
 
 interface WeekNavigationProps {
   currentWeek: { start: Date; end: Date };

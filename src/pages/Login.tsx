@@ -3,8 +3,8 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { useRouter } from 'next/navigation'
 import "./globals.css";
 import app from '../../Firebase-config';
-import styles from '../styles/Login.module.scss';
-import Loader from '@/components/Loader/Loader';
+import styles from '../styles/components/Auth/Login.module.scss';
+import Loader from '@/components/common/Loader/Loader';
 import { getReadableErrorMessage } from '../types/errorMessages';
 import { FirebaseError } from 'firebase/app';
 import { User as FirebaseUser } from 'firebase/auth';

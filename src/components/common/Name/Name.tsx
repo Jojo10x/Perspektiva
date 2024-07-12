@@ -1,8 +1,8 @@
 import {  onAuthStateChanged} from 'firebase/auth'
-import { auth} from '../../../Firebase-config'
-import styles from "../../styles/Name.module.scss";
+import { auth} from '../../../../Firebase-config'
+import styles from "../../../styles/components/Name/Name.module.scss";
 import { useEffect, useState } from 'react';
-import DisplayName from '../DisplayName/DisplayName';
+import DisplayName from '../../DisplayName/DisplayName';
 const Name = () => {
   const [user, setUser] = useState<any>(null);
   const [showName, setShowName] = useState(false);

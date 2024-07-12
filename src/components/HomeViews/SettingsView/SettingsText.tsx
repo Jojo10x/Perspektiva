@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "../../../styles/SettingsText.module.scss";
-import Button from "@/components/Button/Button";
+import styles from "../../../styles/components/Texts/SettingsText.module.scss";
+import Button from "@/components/common/Button/Button";
 const SettingsText = () => {
   return (
     <div className={styles.container}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "../../styles/Loader.module.scss";
+import styles from "../../../styles/components/Loader/Loader.module.scss";
 import PacmanLoader from 'react-spinners/PacmanLoader';
 const Loader: React.FC = () => {
   return (

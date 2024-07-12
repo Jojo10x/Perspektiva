@@ -1,13 +1,13 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import Breadcrumb from '@/components/common/Breadcrumbs/Breadcrumb';
 import React, { useState } from 'react';
-import styles from "../styles/Habit.module.scss";
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where,Timestamp } from "firebase/firestore";
+import styles from "../styles/components/Habits/Habit.module.scss";
+import { collection, addDoc,Timestamp } from "firebase/firestore";
 import { db,auth } from '../../Firebase-config';
 import Link from 'next/link';
 import "./globals.css";
 import { daysOfWeek } from '../types/constants';
-import Modal from '@/components/Modal/Modal';
-import Button from '@/components/Button/Button';
+import Modal from '@/components/common/Modal/Modal';
+import Button from '@/components/common/Button/Button';
 
 interface Habit {
   name: string;
