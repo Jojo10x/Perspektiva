@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { auth,db } from "../../Firebase-config";
 import { addDays, startOfWeek, endOfWeek, format } from 'date-fns';
@@ -14,20 +14,20 @@ export const useFirebasePlans = (currentWeek: { start: Date, end: Date }) => {
     const [favoritePlans, setFavoritePlans] = useState<Plan[]>([]);
     const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        fetchPlans(user.uid).then(() => setLoading(false));
-      } else {
-        signInAnonymously(auth);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [currentWeek]);
-  
-
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
+          fetchPlans(user.uid).then(() => setLoading(false));
+        } else {
+          setUser(null);
+          setLoading(false);
+        }
+      });
+    
+      return () => unsubscribe();
+    }, [currentWeek]);
+    
   const fetchPlans = async (uid: string) => {
     if (!uid) return;
     const plansData: { [key: string]: Plan[] } = {};

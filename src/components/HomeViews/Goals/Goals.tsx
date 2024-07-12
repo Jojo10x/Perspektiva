@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "../../../styles/GoalText.module.scss";
-import Button from "@/components/Button/Button";
+import styles from "../../../styles/components/Texts/GoalText.module.scss";
+import Button from "@/components/common/Button/Button";
 const GoalsText = () => {
     return (
       <div className={styles.container}>

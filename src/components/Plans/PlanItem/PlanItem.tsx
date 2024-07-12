@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../../styles/Plans.module.scss";
+import styles from "../../../styles/components/Plans/Plans.module.scss";
 
 type Plan = {
     id: string;

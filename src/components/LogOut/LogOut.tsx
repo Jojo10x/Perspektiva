@@ -1,8 +1,7 @@
 import { signOut} from 'firebase/auth'
 import { auth} from '../../../Firebase-config'
-import styles from "../../styles/LogOut.module.scss";
+import styles from "../../styles/components/Auth/LogOut.module.scss";
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react';
 
 interface LogOutProps {
   onClick?: () => void;

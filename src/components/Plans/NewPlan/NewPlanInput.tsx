@@ -1,4 +1,4 @@
-import styles from "../../../styles/Plans.module.scss";
+import styles from "../../../styles/components/Plans/Plans.module.scss";
 
 interface NewPlanInputProps {
     onAddPlan: (task: string) => void;

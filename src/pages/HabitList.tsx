@@ -11,14 +11,14 @@ import {
   deleteDoc
 } from "firebase/firestore";
 import { db ,auth} from "../../Firebase-config";
-import styles from "../styles/HabitList.module.scss";
+import styles from "../styles/components/Habits/HabitList.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Breadcrumb from "@/components/common/Breadcrumbs/Breadcrumb";
 import { daysOfWeek } from '../types/constants';
 import Link from "next/link";
 import { User, onAuthStateChanged} from "firebase/auth";
-import Modal from "@/components/Modal/Modal";
-import Loader from "@/components/Loader/Loader";
+import Modal from "@/components/common/Modal/Modal";
+import Loader from "@/components/common/Loader/Loader";
 
 interface Habit {
     id: string;
@@ -387,8 +387,8 @@ const HabitList = () => {
           />
         )}
       </ul>
-      <Link href="/habit" className={styles.plans__history_button}>
-        <span>Habit</span>
+      <Link href="/habits" className={styles.plans__history_button}>
+        <span>Go Back</span>
       </Link>
     </div>
   );

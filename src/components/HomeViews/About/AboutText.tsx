@@ -1,4 +1,4 @@
-import styles from "../../../styles/AboutTextText.module.scss";
+import styles from "../../../styles/components/Texts/AboutText.module.scss";
 const AboutText = () => {
   const currYear = new Date().getFullYear();
   return (

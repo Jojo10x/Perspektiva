@@ -1,22 +1,8 @@
-import { useState, useEffect } from "react";
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { db } from "../../Firebase-config";
-import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { auth } from "../../Firebase-config";
-import styles from "../styles/Plans.module.scss";
+import styles from "../styles/components/Plans/Plans.module.scss";
 import Link from "next/link";
 import "./globals.css";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Breadcrumb from "@/components/common/Breadcrumbs/Breadcrumb";
 import { daysOfWeek } from "../types/constants";
 import FavoritePlans from "../components/Plans/FavourtitePlans/FavoritePlans";
 import DayPlans from "../components/Plans/DayPlans/DayPlans";
@@ -26,8 +12,8 @@ import { usePlans } from '../contexts/Plans/PlansContext';
 import { useWeekNavigation } from '../types/useWeekNavigation';
 import { getDateForDay, calculateTotalPlans, calculateCompletedPlans } from '../utils/utils';
 import { useFirebasePlans } from "@/types/useFirebasePlans";
-import Loader from "@/components/Loader/Loader";
-import Button from "@/components/Button/Button";
+import Loader from "@/components/common/Loader/Loader";
+import Button from "@/components/common/Button/Button";
 
 const Plans = () => {
   const { currentWeek, goToNextWeek, goToPreviousWeek } = useWeekNavigation();

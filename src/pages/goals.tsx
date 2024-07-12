@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc,Timestamp, query, where } from 'firebase/firestore';
-import styles from '../styles/Goals.module.scss';
+import styles from '../styles/Goals/Goals.module.scss';
 import {auth, db} from '../../Firebase-config';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import Loader from '@/components/Loader/Loader';
+import Breadcrumb from '../components/common/Breadcrumbs/Breadcrumb';
+import Loader from '../components/common/Loader/Loader';
 import { User, onAuthStateChanged } from 'firebase/auth';
-import Button from '@/components/Button/Button';
+import Button from '@/components/common/Button/Button';
 interface Goal {
   id: string;
   title: string;

@@ -1,12 +1,12 @@
 import React from 'react';
 import "./globals.css";
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import Breadcrumb from '@/components/common/Breadcrumbs/Breadcrumb';
 import { auth} from '../../Firebase-config'
 import { updateProfile} from 'firebase/auth'
 import { useEffect, useState } from 'react';
-import styles from "../styles/Settings.module.scss";
+import styles from "../styles/components/Settings/Settings.module.scss";
 import LogOut from '@/components/LogOut/LogOut';
-import Button from '@/components/Button/Button';
+import Button from '@/components/common/Button/Button';
 
 const SettingsPage: React.FC = () => {
   const [displayName, setDisplayName] = useState('');

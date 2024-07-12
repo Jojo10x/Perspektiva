@@ -1,6 +1,6 @@
 import Link from "next/link";
-import styles from "../../../styles/PlansText.module.scss";
-import Button from "@/components/Button/Button";
+import styles from "../../../styles/components/Texts/PlansText.module.scss";
+import Button from "@/components/common/Button/Button";
 const PlansText = () => {
     return (
       <div className={styles.container}>

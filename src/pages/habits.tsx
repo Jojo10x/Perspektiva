@@ -1,12 +1,13 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import Breadcrumb from '@/components/common/Breadcrumbs/Breadcrumb';
 import React, { useState } from 'react';
-import styles from "../styles/Habit.module.scss";
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where,Timestamp } from "firebase/firestore";
+import styles from "../styles/components/Habits/Habit.module.scss";
+import { collection, addDoc,Timestamp } from "firebase/firestore";
 import { db,auth } from '../../Firebase-config';
 import Link from 'next/link';
 import "./globals.css";
 import { daysOfWeek } from '../types/constants';
-import Modal from '@/components/Modal/Modal';
+import Modal from '@/components/common/Modal/Modal';
+import Button from '@/components/common/Button/Button';
 
 interface Habit {
   name: string;
@@ -93,18 +94,19 @@ const HabitTracker: React.FC = () => {
               value={dailyHours[index]}
               onChange={(e) => {
                 const newDailyHours = [...dailyHours];
-                newDailyHours[index] = e.target.value ? Number(e.target.value) : 0;
+                newDailyHours[index] = e.target.value
+                  ? Number(e.target.value)
+                  : 0;
                 setDailyHours(newDailyHours);
               }}
               className={styles.input}
             />
           </div>
         ))}
-        <button onClick={handleAddHabit} className={styles.button}>
-          Add Habit
-        </button>
+        <Button content='Habits' className={styles.button} >
+        Add Habit
+        </Button>
         <div className={styles.habitsSection}>
-          <h2 className={styles.subtitle}>Habits</h2>
           <ul className={styles.habitList}>
             {habits.map((habit, habitIndex) => (
               <li key={habitIndex} className={styles.habitItem}>
@@ -120,7 +122,11 @@ const HabitTracker: React.FC = () => {
                             type="number"
                             value={habit.completedHours[dayIndex]}
                             onChange={(e) =>
-                              handleCompleteHoursChange(habitIndex, dayIndex, e.target.value ? Number(e.target.value) : 0)
+                              handleCompleteHoursChange(
+                                habitIndex,
+                                dayIndex,
+                                e.target.value ? Number(e.target.value) : 0
+                              )
                             }
                             className={styles.completedInput}
                           />
@@ -132,11 +138,23 @@ const HabitTracker: React.FC = () => {
                   <div className={styles.totalHours}>
                     <div>
                       <span>Total weekly hours:</span>
-                      <span>{calculateTotalHoursPerWeek(habit.dailyHours, habit.completedHours)} hours</span>
+                      <span>
+                        {calculateTotalHoursPerWeek(
+                          habit.dailyHours,
+                          habit.completedHours
+                        )}{" "}
+                        hours
+                      </span>
                     </div>
                     <div>
                       <span>Total monthly hours:</span>
-                      <span>{calculateTotalHoursPerMonth(habit.dailyHours, habit.completedHours)} hours</span>
+                      <span>
+                        {calculateTotalHoursPerMonth(
+                          habit.dailyHours,
+                          habit.completedHours
+                        )}{" "}
+                        hours
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -145,13 +163,17 @@ const HabitTracker: React.FC = () => {
           </ul>
         </div>
         {modalInfo && (
-        <Modal message={modalInfo.message} type={modalInfo.type} onClose={closeModal} />
-      )}
+          <Modal
+            message={modalInfo.message}
+            type={modalInfo.type}
+            onClose={closeModal}
+          />
+        )}
         <div className="flex space-x-4">
-        <Link href="/habitlist" className={styles.plans__history_button}>
-        <span>Habit List</span>
-        </Link>
-      </div>
+          <Link href="/habitlist" >
+            <Button className={styles.plans__history_button} content="Habits">Habit List</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
