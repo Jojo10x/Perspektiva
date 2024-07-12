@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut,updateProfile,getAuth, signInWithPopup,  GoogleAuthProvider} from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile,getAuth, signInWithPopup,  GoogleAuthProvider} from 'firebase/auth'
 import { useRouter } from 'next/navigation'
 import "./globals.css";
 import app from '../../Firebase-config';
 import styles from '../styles/Login.module.scss';
 import Loader from '@/components/Loader/Loader';
+import { getReadableErrorMessage } from '../types/errorMessages';
+import { FirebaseError } from 'firebase/app';
+import { User as FirebaseUser } from 'firebase/auth';
 
 interface User {
     id: string;
-    name: string;
-    email: string;
+    name: string | null;
+    email: string | null;
   }
   
   const LoginPage: React.FC = () => {
@@ -19,32 +22,32 @@ interface User {
     const [resPassword, setResPassword] = useState("");
     const [newDisplayName, setNewDisplayName] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string| null >(null);
 
     const [user, setUser] = useState<User | null>(null);
     const googleProvider = new GoogleAuthProvider();
-    const [mounted, setMounted] = useState(false);
 
     const router = useRouter();
     const auth = getAuth(app);
 
     useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
+        setLoading(true);
         if (firebaseUser) {
           setUser({
             id: firebaseUser.uid,
-            name: firebaseUser.displayName || "",
-            email: firebaseUser.email || "",
+            name: firebaseUser.displayName,
+            email: firebaseUser.email,
           });
+          router.push('/home'); 
         } else {
           setUser(null);
         }
         setLoading(false);
       });
   
-      setMounted(true);
-  
       return () => unsubscribe();
-    }, []);
+    }, [router]);
   
     useEffect(() => {
       if (user && !loading) {
@@ -54,26 +57,17 @@ interface User {
 
     const login = async () => {
       try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          logEmail,
-          logPassword
-        );
-        console.log("Logged in:", userCredential.user);
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    };
-    const handleUserStateChange = async (firebaseUser: any) => {
-      if (firebaseUser) {
-        const mappedUser: User = {
-          id: firebaseUser.uid,
-          name: firebaseUser.displayName || "",
-          email: firebaseUser.email || "",
-        };
-        setUser(mappedUser);
-      } else {
-        setUser(null);
+        setError(null);
+        setLoading(true);
+        await signInWithEmailAndPassword(auth, logEmail, logPassword);
+      } catch (error) {
+        if (error instanceof FirebaseError) {
+          setError(getReadableErrorMessage(error.code));
+        } else {
+          setError('An unexpected error occurred. Please try again.');
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -100,27 +94,36 @@ interface User {
     }
     const handleGoogleLogin = async () => {
       try {
-        const result = await signInWithPopup(auth, googleProvider);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        const user = result.user;
-        console.log("Google login successful:", user);
-      } catch (error: any) {
-        console.error("Error with Google login:", error.message);
+        setError(null);
+        setLoading(true);
+        await signInWithPopup(auth, googleProvider);
+      } catch (error) {
+        if (error instanceof FirebaseError) {
+          setError(getReadableErrorMessage(error.code));
+        } else {
+          setError('An unexpected error occurred. Please try again.');
+        }
+      } finally {
+        setLoading(false);
       }
     }
+  
     const register = async () => {
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          resEmail,
-          resPassword
-        );
-        console.log(userCredential);
-      } catch (error: any) {
-        console.log(error.message);
+        setError(null);
+        setLoading(true);
+        await createUserWithEmailAndPassword(auth, resEmail, resPassword);
+      } catch (error) {
+        if (error instanceof FirebaseError) {
+          setError(getReadableErrorMessage(error.code));
+        } else {
+          setError('An unexpected error occurred. Please try again.');
+        }
+      } finally {
+        setLoading(false);
       }
     };
+  
 
     const registerAndUpdateDisplayName = async () => {
       try {
@@ -135,72 +138,80 @@ interface User {
       }
     };
 
-    if (loading || !mounted) {
-      return <Loader /> // or any loading indicator
+    if (loading) {
+      return <Loader /> 
     }
 
     return (
       <div className={styles.container}>
-      <div className={styles.formWrapper}>
-        <h1 className={styles.title}>Login</h1>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div className={styles.section}>
-            <h2 className={styles.sectionTitle}>Register</h2>
-            <input
-              className={styles.input}
-              type="text"
-              value={newDisplayName}
-              placeholder="Name"
-              onChange={(e) => setNewDisplayName(e.target.value)}
-            />
-            <input
-              className={styles.input}
-              type="email"
-              placeholder="Email"
-              value={resEmail}
-              onChange={(e) => setResEmail(e.target.value)}
-            />
-            <input
-              className={styles.input}
-              type="password"
-              placeholder="Password"
-              value={resPassword}
-              onChange={(e) => setResPassword(e.target.value)}
-            />
-            <button
-              className={styles.button}
-              onClick={registerAndUpdateDisplayName}
-            >
-              Register
-            </button>
-          </div>
-          <div className={styles.section}>
-            <h2 className={styles.sectionTitle}>Login</h2>
-            <input
-              className={styles.input}
-              type="email"
-              placeholder="Email"
-              value={logEmail}
-              onChange={(e) => setLogEmail(e.target.value)}
-            />
-            <input
-              className={styles.input}
-              type="password"
-              placeholder="Password"
-              value={logPassword}
-              onChange={(e) => setLogPassword(e.target.value)}
-            />
-            <button className={styles.button} onClick={login}>
-              Login
-            </button>
-            <button className={styles.button} onClick={handleGoogleLogin}>
-              Login with Google
-            </button>
-          </div>
-        </form>
+        <div className={styles.formWrapper}>
+          {/* <h1 className={styles.title}>Login</h1> */}
+          {error && (
+            <div className={styles.error}>
+              <svg className={styles.errorIcon} viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
+              {error}
+            </div>
+          )}
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>Register</h2>
+              <input
+                className={styles.input}
+                type="text"
+                value={newDisplayName}
+                placeholder="Name"
+                onChange={(e) => setNewDisplayName(e.target.value)}
+              />
+              <input
+                className={styles.input}
+                type="email"
+                placeholder="Email"
+                value={resEmail}
+                onChange={(e) => setResEmail(e.target.value)}
+              />
+              <input
+                className={styles.input}
+                type="password"
+                placeholder="Password"
+                value={resPassword}
+                onChange={(e) => setResPassword(e.target.value)}
+              />
+              <button
+                className={styles.button}
+                onClick={registerAndUpdateDisplayName}
+              >
+                {loading ? "Registering..." : "Register"}
+              </button>
+            </div>
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>Login</h2>
+              <input
+                className={styles.input}
+                type="email"
+                placeholder="Email"
+                value={logEmail}
+                onChange={(e) => setLogEmail(e.target.value)}
+              />
+              <input
+                className={styles.input}
+                type="password"
+                placeholder="Password"
+                value={logPassword}
+                onChange={(e) => setLogPassword(e.target.value)}
+              />
+              <button className={styles.button} onClick={login}>
+                {loading ? "Logging in..." : "Login"}
+              </button>
+              <button className={styles.button} onClick={handleGoogleLogin}>
+                {loading ? "Logging in..." : "Login with Google"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
   export default LoginPage;

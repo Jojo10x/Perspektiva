@@ -20,19 +20,21 @@ const History = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<any>(null);
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          fetchTasks(user.uid).then (() => setLoading(false));
+          setUser(user);
+          fetchTasks(user.uid).then(() => setLoading(false));
         } else {
-          signInAnonymously(auth);
-          
+          setUser(null);
+          setLoading(false);
         }
       });
   
       return () => unsubscribe();
-    }, []);
+    }, [user]);
   
     const fetchTasks = async (uid: string) => {
       if (!uid) return;
