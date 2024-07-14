@@ -3,6 +3,8 @@ import "./globals.css";
 import styles from '../styles/components/Auth/Login.module.scss';
 import Loader from '@/components/common/Loader/Loader';
 import { useAuth } from '../hooks/Auth/useAuth';
+import { useAuthContext } from '@/contexts/Auth/AuthContext';
+import { useRouter } from 'next/router';
 
 const LoginPage: React.FC = () => {
   const [logEmail, setLogEmail] = useState("");
@@ -12,6 +14,14 @@ const LoginPage: React.FC = () => {
   const [newDisplayName, setNewDisplayName] = useState("");
 
   const { loading, error, login, loginWithGoogle, register } = useAuth();
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  if (loading) return <div>Loading...</div>;
+  if (user) {
+    router.push('/home');
+    return null;
+  }
 
   const handleRegister = async () => {
     await register(resEmail, resPassword, newDisplayName);

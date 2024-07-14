@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styles from '../../src/styles/components/Home/HomeView.module.scss';
 import QuoteRotator from '../components/Quotes/QuoteRotator';
 import Name from '../components/common/Name/Name';
@@ -10,6 +9,8 @@ import GoalsText from '@/components/HomeViews/Goals/Goals';
 import StickyNavigation from '@/components/StickyNavigation/StickyNavigation';
 import Tab from '@/components/Tab/Tab';
 import TabContent from '@/components/Tab/TabContent';
+import { useAuthContext } from '@/contexts/Auth/AuthContext';
+import { useRouter } from 'next/router';
 
 
 const TAB_CONTAINER_HEIGHT = 70;
@@ -23,6 +24,14 @@ const tabs = [
 ];
 
 const HomeView: React.FC = () => {
+  const { user, loading } = useAuthContext();
+  const router = useRouter();
+
+  if (loading) return <div>Loading...</div>;
+  if (!user) {
+    router.push('/login');
+    return null;
+  }
   return (
     <div>
       <StickyNavigation tabContainerHeight={TAB_CONTAINER_HEIGHT} />

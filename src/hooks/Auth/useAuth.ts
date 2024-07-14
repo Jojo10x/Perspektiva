@@ -35,7 +35,7 @@ export const useAuth = () => {
     });
 
     return () => unsubscribe();
-  }, [auth, router]);
+  }, [auth]);
 
   const login = async (email: string, password: string) => {
     setLoading(true);

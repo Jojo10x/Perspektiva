@@ -10,6 +10,8 @@ import { useAuth } from '../hooks/Goals/useAuth';
 import { useGoals } from '../hooks/Goals/useGoals';
 import GoalItem from '../components/Goals/GoalItem';
 import GoalModal from '../components/Goals/GoalModal';
+import { useRouter } from 'next/router';
+import { useAuthContext } from '@/contexts/Auth/AuthContext';
 
 const Goals: React.FC = () => {
   const currentUser = useAuth();
@@ -18,6 +20,13 @@ const Goals: React.FC = () => {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [newGoal, setNewGoal] = useState({ title: '', timeframe: 1 });
+  const { user} = useAuthContext();
+  const router = useRouter();
+
+  if (!user) {
+    router.push('/goals');
+    return null;
+  }
 
   if (loading) {
     return <Loader />;
