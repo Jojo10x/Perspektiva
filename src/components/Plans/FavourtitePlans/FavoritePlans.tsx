@@ -37,7 +37,11 @@ const FavoritePlans: React.FC<FavoritePlansProps> = ({
 
   return (
     <>
-      <Button content=" Favorites" className={styles.favoritePlansButton} onClick={openModal}>
+      <Button
+        content=" Favorites"
+        className={styles.favoritePlansButton}
+        onClick={openModal}
+      >
         Favorites
       </Button>
 

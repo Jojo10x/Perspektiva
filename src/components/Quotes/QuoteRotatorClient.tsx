@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import styles from '../../styles/components/Quote/QuoteRotator.module.scss';
-import quotesData from './quotes.json';
+import React, { useState, useEffect } from "react";
+import styles from "../../styles/components/Quote/QuoteRotator.module.scss";
+import quotesData from "./quotes.json";
 
 interface Quote {
   quote: string;
@@ -18,7 +18,7 @@ const QuoteRotatorClient: React.FC = () => {
     setIsLoading(false);
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-    }, 50000); 
+    }, 50000);
 
     return () => clearInterval(interval);
   }, [quotes.length]);
@@ -31,12 +31,8 @@ const QuoteRotatorClient: React.FC = () => {
 
   return (
     <div className={styles.quoteContainer}>
-      <div className={styles.quote}>
-        "{currentQuote.quote}"
-      </div>
-      <div className={styles.author}>
-        - {currentQuote.author}
-      </div>
+      <div className={styles.quote}>"{currentQuote.quote}"</div>
+      <div className={styles.author}>- {currentQuote.author}</div>
     </div>
   );
 };
