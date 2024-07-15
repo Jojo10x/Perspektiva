@@ -15,7 +15,7 @@ const SettingsText = () => {
         <div className={styles.feature}>
           <i className={`${styles.icon} ${styles.iconNotifications}`}></i>
           <h4>Notification Preferences</h4>
-          <p>Control how and when you're notified</p>
+          <p>Control how and when you are notified</p>
         </div>
         <div className={styles.feature}>
           <i className={`${styles.icon} ${styles.iconTheme}`}></i>
@@ -26,7 +26,7 @@ const SettingsText = () => {
       <p className={styles.description}>
         Take full control of your app experience with our comprehensive
         settings. From adjusting your profile details to fine-tuning
-        notifications and personalizing the app's appearance, make the app truly
+        notifications and personalizing the app&apos;s appearance, make the app truly
         yours.
       </p>
       <Link href="/settings">

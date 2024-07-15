@@ -71,7 +71,7 @@ const FavoritePlans: React.FC<FavoritePlansProps> = ({
             </div>
             {selectedPlan && (
               <div className={styles.selectedPlanDetails}>
-                <h3>Add "{selectedPlan.task}" to:</h3>
+                <h3>Add &quot;{selectedPlan.task}&quot; to:</h3>
                 <div className={styles.dayButtons}>
                   {daysOfWeek.map((day) => (
                     <button

@@ -25,7 +25,7 @@ const PlansText = () => {
       </div>
       <p className={styles.description}>
         Take control of your life with our intuitive planning tool. Whether
-        you're organizing your work projects, planning a vacation, or mapping
+        you are organizing your work projects, planning a vacation, or mapping
         out your five-year goals, our Plans page has got you covered.
       </p>
       <Link href="/plans">

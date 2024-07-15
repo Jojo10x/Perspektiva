@@ -30,7 +30,7 @@ const AboutText = () => {
       <div className={styles.mission}>
         <h3>Our Mission</h3>
         <p>
-          Perspektiva is dedicated to improving people's lives through effective
+        Perspektiva is dedicated to improving people&apos;s lives through effective
           habit building and strategic planning. We believe that small,
           consistent actions lead to significant life changes.
         </p>
