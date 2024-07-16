@@ -9,19 +9,29 @@ const withAuth = (
   const WithAuth = (props: any) => {
     const { user, loading } = useAuthContext();
     const router = useRouter();
+    const publicRoutes = [
+      "/login",
+      "/settings",
+      "/goals",
+      "/habitlist",
+      "/habits",
+      "/history",
+      "/plans",
+    ];
 
     useEffect(() => {
-      if (!loading && !user && isProtected && router.pathname !== '/login'){
-        console.log("Redirecting to login", { loading, user, isProtected });
-        router.replace("/login").catch(console.error);
-      }
       console.log('withAuth effect', { 
-        loading, 
-        user, 
-        isProtected, 
-        currentPath: router.pathname 
+        currentPath: router.pathname,
+        isProtected,
+        loading,
+        user,
+        publicRoutes
       });
-    }, [user, loading, router]);
+      if (!loading && !user && isProtected && !publicRoutes.includes(router.pathname)) {
+        console.log('Attempting to redirect to login');
+        router.replace("/login").catch(error => console.error('Router error:', error));
+      }
+    }, [user, loading, router, isProtected]);
 
     if (loading) return <Loader/>;
     if (!user && isProtected) return null;
