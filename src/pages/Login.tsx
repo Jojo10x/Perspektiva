@@ -6,7 +6,7 @@ import { useAuth } from '../hooks/Auth/useAuth';
 import { useAuthContext } from '@/contexts/Auth/AuthContext';
 import { useRouter } from 'next/router';
 
-const LoginPage: React.FC = () => {
+export default function LoginPage () {
   const [logEmail, setLogEmail] = useState("");
   const [logPassword, setLogPassword] = useState("");
   const [resEmail, setResEmail] = useState("");
@@ -103,5 +103,5 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+
 

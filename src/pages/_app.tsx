@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/Auth/useAuth';
 import { AuthProvider } from '@/contexts/Auth/AuthContext';
 import withAuth from '@/utils/withAuth';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { currentWeek } = useWeekNavigation();
@@ -19,6 +20,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     "/history",
     "/plans",
   ];
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      console.log('App is changing to: ', url)
+    }
+    router.events.on('routeChangeStart', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [router])
 
   const isProtectedRoute = !publicRoutes.includes(router.pathname);
 
