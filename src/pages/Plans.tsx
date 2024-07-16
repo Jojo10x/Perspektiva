@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from "../styles/components/Plans/Plans.module.scss";
 import Link from "next/link";
 import "./globals.css";

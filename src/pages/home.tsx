@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../../src/styles/components/Home/HomeView.module.scss';
 import QuoteRotator from '../components/Quotes/QuoteRotator';
 import Name from '../components/common/Name/Name';

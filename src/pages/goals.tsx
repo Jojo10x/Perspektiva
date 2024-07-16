@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import styles from '../styles/components/Goals/Goals.module.scss';
 import {auth, db} from '../../Firebase-config';

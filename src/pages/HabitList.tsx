@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from "../styles/components/Habits/HabitList.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import Breadcrumb from "@/components/common/Breadcrumbs/Breadcrumb";
