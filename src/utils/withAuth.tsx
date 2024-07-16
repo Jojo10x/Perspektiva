@@ -12,7 +12,8 @@ const withAuth = (
 
     useEffect(() => {
       if (!loading && !user && isProtected) {
-        router.replace("/login");
+        console.log("Redirecting to login", { loading, user, isProtected });
+        router.replace("/login").catch(console.error);
       }
     }, [user, loading, router]);
 
