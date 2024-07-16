@@ -11,10 +11,16 @@ const withAuth = (
     const router = useRouter();
 
     useEffect(() => {
-      if (!loading && !user && isProtected) {
+      if (!loading && !user && isProtected && router.pathname !== '/login'){
         console.log("Redirecting to login", { loading, user, isProtected });
         router.replace("/login").catch(console.error);
       }
+      console.log('withAuth effect', { 
+        loading, 
+        user, 
+        isProtected, 
+        currentPath: router.pathname 
+      });
     }, [user, loading, router]);
 
     if (loading) return <Loader/>;
