@@ -30,7 +30,7 @@ const HomeView: React.FC = () => {
 
   if (loading) return <div>Loading...</div>;
   if (!user) {
-    router.push('/login');
+    router.push('/Login');
     return null;
   }
   return (

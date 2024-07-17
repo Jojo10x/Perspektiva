@@ -14,7 +14,7 @@ const LogOut: React.FC<LogOutProps> = ({ onClick }) => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push('/login');
+      router.push('/Login');
     } catch (error) {
       console.log((error as Error).message);
     }

@@ -12,7 +12,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     const { user, loading } = useAuthContext();
     const router = useRouter();
     const publicRoutes = [
-      "/login",
+      "/Login",
       "/settings",
       "/goals",
       "/habitlist",
@@ -27,11 +27,11 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     useEffect(() => {
       if (!loading) {
         if (!user && isProtectedRoute) {
-          router.push("/login").catch(error => {
+          router.push("/Login").catch(error => {
             console.error('Router error:', error);
-            window.location.href = '/login'; 
+            window.location.href = '/Login'; 
           });
-        } else if (user && router.pathname === '/login') {
+        } else if (user && router.pathname === '/Login') {
           router.push("/home").catch(error => {
             console.error('Router error:', error);
             window.location.href = '/home';

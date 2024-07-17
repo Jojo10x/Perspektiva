@@ -20,7 +20,7 @@ export const useAuth = () => {
   const googleProvider = new GoogleAuthProvider();
 
   const publicRoutes = [
-    "/login",
+    "/Login",
     "/settings",
     "/goals",
     "/habitlist",
@@ -39,13 +39,13 @@ export const useAuth = () => {
           email: firebaseUser.email,
         });
 
-        if (router.pathname === '/login') {
+        if (router.pathname === '/Login') {
           router.push('/home'); 
         }
       } else {
         setUser(null);
         if (!publicRoutes.includes(router.pathname)) {
-          router.push('/login'); 
+          router.push('/Login'); 
         }
       }
       setLoading(false);
