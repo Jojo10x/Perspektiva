@@ -25,11 +25,14 @@ const GoalModal: React.FC<GoalModalProps> = ({ isOpen, onClose, newGoal, setNewG
           <input
             type="range"
             min="1"
-            max="12"
+            max="60"
             value={newGoal.timeframe}
             onChange={(e) => setNewGoal({ ...newGoal, timeframe: parseInt(e.target.value) })}
           />
-          <span>{newGoal.timeframe} month{newGoal.timeframe > 1 ? 's' : ''}</span>
+            <div className={styles.timeframeDisplay}>
+            <span>{newGoal.timeframe} month{newGoal.timeframe > 1 ? 's' : ''} </span>
+            <span>({(newGoal.timeframe / 12).toFixed(1)} year{newGoal.timeframe > 12 ? 's' : ''})</span>
+          </div>
         </div>
         <div className={styles.modalActions}>
           <button onClick={onClose} className={styles.cancelButton}>Cancel</button>

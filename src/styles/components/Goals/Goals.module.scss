@@ -260,6 +260,8 @@
 .timeframeInput {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  text-transform: uppercase;
   margin-bottom: 20px;
 
   input[type="range"] {
@@ -409,5 +411,4 @@
     font-size: 1rem;
   }
 }
-
 
