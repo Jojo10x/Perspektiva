@@ -25,8 +25,21 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
   }, [loading]);
 
   useEffect(() => {
-    if (authChecked) {
-      const publicPages = ['/login', '/register', '/about']; // Add your public pages here
+    if (!authChecked) return;
+    console.log('Auth Checked:', authChecked);
+    console.log('User:', user);
+    console.log('Current Path:', router.pathname);
+      const publicPages = [
+        "/login",
+        "/settings",
+        "/goals",
+        "/habitlist",
+        "/habits",
+        "/history",
+        "/plans",
+        "/404",
+        "/[[...slug]]",
+      ]; 
       const isPublicPage = publicPages.includes(router.pathname);
 
       if (!user && !isPublicPage) {
@@ -34,7 +47,6 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
       } else if (user && router.pathname === '/login') {
         router.push('/home');
       }
-    }
   }, [authChecked, user, router]);
 
   return (

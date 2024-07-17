@@ -13,11 +13,23 @@ interface User {
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+
+  const publicRoutes = [
+    "/login",
+    "/settings",
+    "/goals",
+    "/habitlist",
+    "/habits",
+    "/history",
+    "/plans",
+    "/404",
+    "/[[...slug]]",
+  ];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -27,9 +39,15 @@ export const useAuth = () => {
           name: firebaseUser.displayName,
           email: firebaseUser.email,
         });
-        router.push('/home');
+
+        if (router.pathname === '/login') {
+          router.push('/home'); 
+        }
       } else {
         setUser(null);
+        if (!publicRoutes.includes(router.pathname)) {
+          router.push('/login'); 
+        }
       }
       setLoading(false);
     });
