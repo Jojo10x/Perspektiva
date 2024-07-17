@@ -32,7 +32,7 @@ const QuoteRotatorClient: React.FC = () => {
 
   return (
     <div className={styles.quoteContainer}>
-      <div className={styles.quote}>&quot;{currentQuote.quote}&quot;</div>
+      <div className={styles.quote}>{currentQuote.quote}</div>
       <div className={styles.author}>- {currentQuote.author}</div>
     </div>
   );
