@@ -17,7 +17,7 @@ export default function LoginPage () {
   const { user } = useAuthContext();
   const router = useRouter();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (user) {
     router.push('/');
     return null;

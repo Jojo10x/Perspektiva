@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/components/Quote/QuoteRotator.module.scss";
 import quotesData from "./quotes.json";
+import Loader from "../common/Loader/Loader";
 
 interface Quote {
   quote: string;
@@ -24,7 +25,7 @@ const QuoteRotatorClient: React.FC = () => {
   }, [quotes.length]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   const currentQuote = quotes[currentQuoteIndex];

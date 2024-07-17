@@ -12,6 +12,7 @@ import Tab from '@/components/Tab/Tab';
 import TabContent from '@/components/Tab/TabContent';
 import { useAuthContext } from '@/contexts/Auth/AuthContext';
 import { useRouter } from 'next/router';
+import Loader from '@/components/common/Loader/Loader';
 
 
 const TAB_CONTAINER_HEIGHT = 70;
@@ -28,7 +29,7 @@ const HomeView: React.FC = () => {
   const { user, loading } = useAuthContext();
   const router = useRouter();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (!user) {
     router.push('/Login');
     return null;

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/Auth/useAuth';
+import Loader from '@/components/common/Loader/Loader';
 
 interface AuthContextType {
   user: any;
@@ -50,7 +51,7 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
-      {authChecked ? children : <div>Loading...</div>}
+      {authChecked ? children : <Loader/>}
     </AuthContext.Provider>
   );
 };

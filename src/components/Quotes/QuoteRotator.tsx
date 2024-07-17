@@ -1,9 +1,10 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
+import Loader from '../common/Loader/Loader';
 
 const QuoteRotatorClient = dynamic(() => import('./QuoteRotatorClient'), {
   ssr: false,
-  loading: () => <div>Loading...</div> 
+  loading: () => <Loader/>
 });
 
 const QuoteRotator: React.FC = () => {
