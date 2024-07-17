@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '@/contexts/Auth/AuthContext';
 import Loader from '@/components/common/Loader/Loader';
-import LoginPage from '@/pages/login';
+import LoginPage from '../pages/login';
 function getDisplayName(WrappedComponent: React.ComponentType) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }
