@@ -531,3 +531,54 @@ $border-color: #e0e6ed;
     font-size: 14px;
   }
 }
+
+// Plans text
+
+.plans__save_hint {
+    display: block;
+    text-align: left;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    opacity: 0;
+    background: linear-gradient(45deg, #3494E6, #EC6EAD);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    text-transform: uppercase;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(45deg, #3494E6, #EC6EAD);
+      transition: width 0.3s ease;
+    }
+    
+    &--visible {
+      opacity: 1;
+      
+      &::after {
+        width:20%;
+      }
+    }
+  }
+
+@media (max-width: 768px) {
+  .plans__save_hint {
+    &--visible {
+      opacity: 1;
+      
+      &::after {
+        width:60%;
+      }
+    }
+    &__save_hint {
+      font-size: 0.75rem;
+    }
+  }
+}
