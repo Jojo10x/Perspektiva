@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '@/contexts/Auth/AuthContext';
 import Loader from '@/components/common/Loader/Loader';
-import LoginPage from '../pages/login';
 function getDisplayName(WrappedComponent: React.ComponentType) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }
@@ -43,7 +42,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     }, [user, loading, router, isProtectedRoute]);
 
     if (loading) return <Loader/>;
-    if (!user && isProtectedRoute) return <LoginPage />; 
+    if (!user && isProtectedRoute) return null;
     return <WrappedComponent {...props} />;
   };
 
