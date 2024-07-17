@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log('Rendering _app with pathname:', useRouter().pathname);
   const { currentWeek } = useWeekNavigation();
   const router = useRouter();
   const publicRoutes = [
