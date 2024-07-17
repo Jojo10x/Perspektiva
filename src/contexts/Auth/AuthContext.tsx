@@ -38,7 +38,6 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
         "/history",
         "/plans",
         "/404",
-        "/[[...slug]]",
       ]; 
       const isPublicPage = publicPages.includes(router.pathname);
 

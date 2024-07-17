@@ -20,7 +20,6 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       "/history",
       "/plans",
       "/404",
-      "/[[...slug]]",
     ];
 
     const isProtectedRoute = !publicRoutes.includes(router.pathname);
@@ -46,7 +45,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     return <WrappedComponent {...props} />;
   };
 
-  WithAuth.displayName = `withAuth(${getDisplayName(WrappedComponent)})`;
+  WithAuth.displayName = `WithAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
   return WithAuth;
 };
 

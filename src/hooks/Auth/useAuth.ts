@@ -28,7 +28,6 @@ export const useAuth = () => {
     "/history",
     "/plans",
     "/404",
-    "/[[...slug]]",
   ];
 
   useEffect(() => {
