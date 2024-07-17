@@ -34,10 +34,13 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       });
       if (!loading) {
         if (!user && isProtected) {
-          console.log('Attempting to redirect to login');
-          router.replace("/login").catch(error => console.error('Router error:', error));
+          console.log('User not authenticated, attempting to redirect to login');
+          router.push("/login").catch(error => console.error('Router error:', error));
         } else if (user && router.pathname === '/login') {
-          router.replace("/home").catch(error => console.error('Router error:', error));
+          console.log('User authenticated, redirecting from login to home');
+          router.push("/home").catch(error => console.error('Router error:', error));
+        } else {
+          console.log('No redirection needed');
         }
       }
     }, [user, loading, router, isProtected]);
