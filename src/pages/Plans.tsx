@@ -65,7 +65,7 @@ const Plans = () => {
         onAddFavoritePlanToDay={(favoritePlan, day) => addPlan(day, favoritePlan.task)}
       />
       <div className="flex space-x-4">
-        <Link href="/history" >
+        <Link href="/History" >
           <Button className={styles.plans__history_button} content={"History"}>
           History
           </Button>

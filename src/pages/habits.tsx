@@ -66,7 +66,7 @@ const HabitTracker: React.FC = () => {
           />
         )}
         <div className="flex space-x-4">
-          <Link href="/habitlist">
+          <Link href="/HabitList">
             <Button className={styles.plans__history_button} content="Habits">Habit List</Button>
           </Link>
         </div>

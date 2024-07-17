@@ -16,7 +16,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       "/Settings",
       "/Goals",
       "/HabitList",
-      "/Habits",
+      "/habits",
       "/History",
       "/Plans",
       "/404",
@@ -34,7 +34,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
         } else if (user && router.pathname === '/Login') {
           router.push("/Home").catch(error => {
             console.error('Router error:', error);
-            window.location.href = '/Home';
+            window.location.href = '/';
           });
         }
       }

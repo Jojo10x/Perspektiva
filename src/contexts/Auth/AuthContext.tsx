@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
         "/Settings",
         "/Goals",
         "/HabitList",
-        "/Habits",
+        "/habits",
         "/History",
         "/Plans",
         "/404",
@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
       if (!user && !isPublicPage) {
         router.push('/Login');
       } else if (user && router.pathname === '/Login') {
-        router.push('/Home');
+        router.push('/');
       }
   }, [authChecked, user, router]);
 

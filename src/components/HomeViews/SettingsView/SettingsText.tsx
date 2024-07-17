@@ -29,7 +29,7 @@ const SettingsText = () => {
         notifications and personalizing the app&apos;s appearance, make the app truly
         yours.
       </p>
-      <Link href="/settings">
+      <Link href="/Settings">
         <Button content="SETTINGS"> Customize Your Settings</Button>
       </Link>
     </div>

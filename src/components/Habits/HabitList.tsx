@@ -1,4 +1,3 @@
-// components/HabitItem.tsx
 import React from 'react';
 import styles from "../../styles/components/Habits/HabitList.module.scss";
 import { Habit } from '../../types/typesHabitList';

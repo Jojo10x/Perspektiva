@@ -19,7 +19,7 @@ export default function LoginPage () {
 
   if (loading) return <div>Loading...</div>;
   if (user) {
-    router.push('/Home');
+    router.push('/');
     return null;
   }
 

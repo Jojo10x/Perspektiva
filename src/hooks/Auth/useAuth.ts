@@ -23,7 +23,7 @@ export const useAuth = () => {
     "/Login",
     "/Goals",
     "/HabitList",
-    "/Habits",
+    "/habits",
     "/History",
     "/Plans",
     "/404",
