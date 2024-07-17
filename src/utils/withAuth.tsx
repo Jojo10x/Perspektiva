@@ -20,6 +20,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       "/history",
       "/plans",
       "/404",
+      "/[[...slug]]",
     ];
 
     const isProtected = !publicRoutes.includes(router.pathname);

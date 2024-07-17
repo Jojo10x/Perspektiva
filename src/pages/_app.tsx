@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     "/history",
     "/plans", 
     "/404",
+    "/[[...slug]]",
   ];
   useEffect(() => {
     const handleRouteChange = (url: any) => {
