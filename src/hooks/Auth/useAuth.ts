@@ -21,12 +21,11 @@ export const useAuth = () => {
 
   const publicRoutes = [
     "/Login",
-    "/settings",
-    "/goals",
-    "/habitlist",
-    "/habits",
-    "/history",
-    "/plans",
+    "/Goals",
+    "/HabitList",
+    "/Habits",
+    "/History",
+    "/Plans",
     "/404",
   ];
 
@@ -40,7 +39,7 @@ export const useAuth = () => {
         });
 
         if (router.pathname === '/Login') {
-          router.push('/home'); 
+          router.push('/Home'); 
         }
       } else {
         setUser(null);

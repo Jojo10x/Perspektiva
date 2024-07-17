@@ -28,7 +28,7 @@ const PlansText = () => {
         you are organizing your work projects, planning a vacation, or mapping
         out your five-year goals, our Plans page has got you covered.
       </p>
-      <Link href="/plans">
+      <Link href="/Plans">
         <Button content="PLANS"> Start Planning Now</Button>
       </Link>
     </div>

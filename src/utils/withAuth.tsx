@@ -13,12 +13,12 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
     const router = useRouter();
     const publicRoutes = [
       "/Login",
-      "/settings",
-      "/goals",
-      "/habitlist",
-      "/habits",
-      "/history",
-      "/plans",
+      "/Settings",
+      "/Goals",
+      "/HabitList",
+      "/Habits",
+      "/History",
+      "/Plans",
       "/404",
     ];
 
@@ -32,9 +32,9 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
             window.location.href = '/Login'; 
           });
         } else if (user && router.pathname === '/Login') {
-          router.push("/home").catch(error => {
+          router.push("/Home").catch(error => {
             console.error('Router error:', error);
-            window.location.href = '/home';
+            window.location.href = '/Home';
           });
         }
       }

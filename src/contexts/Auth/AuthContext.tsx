@@ -31,12 +31,12 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
     console.log('Current Path:', router.pathname);
       const publicPages = [
         "/Login",
-        "/settings",
-        "/goals",
-        "/habitlist",
-        "/habits",
-        "/history",
-        "/plans",
+        "/Settings",
+        "/Goals",
+        "/HabitList",
+        "/Habits",
+        "/History",
+        "/Plans",
         "/404",
       ]; 
       const isPublicPage = publicPages.includes(router.pathname);
@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
       if (!user && !isPublicPage) {
         router.push('/Login');
       } else if (user && router.pathname === '/Login') {
-        router.push('/home');
+        router.push('/Home');
       }
   }, [authChecked, user, router]);
 
