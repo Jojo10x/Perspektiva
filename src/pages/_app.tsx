@@ -2,7 +2,6 @@ import { useWeekNavigation } from '@/types/useWeekNavigation';
 import { PlansProvider } from '../contexts/Plans/PlansContext';
 import './globals.css'; 
 import { AppProps } from 'next/app';
-import { useAuth } from '@/hooks/Auth/useAuth';
 import { AuthProvider } from '@/contexts/Auth/AuthContext';
 import withAuth from '@/utils/withAuth';
 import { useRouter } from 'next/router';
@@ -18,7 +17,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     "/habitlist",
     "/habits",
     "/history",
-    "/plans",
+    "/plans", 
+    "/404",
   ];
   useEffect(() => {
     const handleRouteChange = (url: any) => {

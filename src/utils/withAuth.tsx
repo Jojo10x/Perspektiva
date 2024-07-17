@@ -17,6 +17,7 @@ const withAuth = (
       "/habits",
       "/history",
       "/plans",
+      "/404",
     ];
 
     useEffect(() => {
