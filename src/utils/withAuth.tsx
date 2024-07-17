@@ -1,11 +1,13 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '@/contexts/Auth/AuthContext';
 import Loader from '@/components/common/Loader/Loader';
-const withAuth = (
-  WrappedComponent: React.ComponentType,
-  isProtected: boolean = true
-) => {
+function getDisplayName(WrappedComponent: React.ComponentType) {
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
+}
+
+const withAuth = (WrappedComponent: React.ComponentType) => {
   const WithAuth = (props: any) => {
     const { user, loading } = useAuthContext();
     const router = useRouter();
@@ -20,6 +22,8 @@ const withAuth = (
       "/404",
     ];
 
+    const isProtected = !publicRoutes.includes(router.pathname);
+
     useEffect(() => {
       console.log('withAuth effect', { 
         currentPath: router.pathname,
@@ -28,9 +32,13 @@ const withAuth = (
         user,
         publicRoutes
       });
-      if (!loading && !user && isProtected && !publicRoutes.includes(router.pathname)) {
-        console.log('Attempting to redirect to login');
-        router.replace("/login").catch(error => console.error('Router error:', error));
+      if (!loading) {
+        if (!user && isProtected) {
+          console.log('Attempting to redirect to login');
+          router.replace("/login").catch(error => console.error('Router error:', error));
+        } else if (user && router.pathname === '/login') {
+          router.replace("/home").catch(error => console.error('Router error:', error));
+        }
       }
     }, [user, loading, router, isProtected]);
 
@@ -42,9 +50,5 @@ const withAuth = (
   WithAuth.displayName = `withAuth(${getDisplayName(WrappedComponent)})`;
   return WithAuth;
 };
-
-function getDisplayName(WrappedComponent: React.ComponentType) {
-  return WrappedComponent.displayName || WrappedComponent.name || "Component";
-}
 
 export default withAuth;

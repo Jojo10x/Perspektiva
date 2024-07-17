@@ -30,9 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [router])
 
-  const isProtectedRoute = !publicRoutes.includes(router.pathname);
-
-  const AuthenticatedComponent = withAuth(Component, isProtectedRoute);
+  const AuthenticatedComponent = withAuth(Component);
 
   return (
     <AuthProvider>
