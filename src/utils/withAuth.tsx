@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '@/contexts/Auth/AuthContext';
 import Loader from '@/components/common/Loader/Loader';
+import LoginPage from '@/pages/login';
 function getDisplayName(WrappedComponent: React.ComponentType) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }
@@ -23,37 +24,26 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       "/[[...slug]]",
     ];
 
-    const isProtected = !publicRoutes.some(route => router.pathname.startsWith(route.replace('[[...slug]]', '')));
+    const isProtectedRoute = !publicRoutes.includes(router.pathname);
 
     useEffect(() => {
-      console.log('withAuth effect', { 
-        currentPath: router.pathname,
-        isProtected,
-        loading,
-        user,
-        publicRoutes
-      });
       if (!loading) {
-        if (!user && isProtected) {
-          console.log('User not authenticated, attempting to redirect to login');
+        if (!user && isProtectedRoute) {
           router.push("/login").catch(error => {
             console.error('Router error:', error);
-            window.location.href = '/login';
+            window.location.href = '/login'; 
           });
         } else if (user && router.pathname === '/login') {
-          console.log('User authenticated, redirecting from login to home');
           router.push("/home").catch(error => {
             console.error('Router error:', error);
             window.location.href = '/home';
           });
-        } else {
-          console.log('No redirection needed');
         }
       }
-    }, [user, loading, router, isProtected]);
+    }, [user, loading, router, isProtectedRoute]);
 
     if (loading) return <Loader/>;
-    if (!user && isProtected) return null;
+    if (!user && isProtectedRoute) return <LoginPage />; 
     return <WrappedComponent {...props} />;
   };
 
