@@ -12,7 +12,7 @@ export const breadcrumbsData: BreadcrumbsData = {
   "/History": [{ name: "Home", path: "/" }, { name: "Plans", path: "/Plans" }, { name: "History" }],
   "/habits": [{ name: "Home", path: "/" }, { name: "habits" }],
   "/Plans": [{ name: "Home", path: "/" }, { name: "Plans" }],
-  "/Goals": [{ name: "Home", path: "/" }, { name: "Goals" }],
+  "/goals": [{ name: "Home", path: "/" }, { name: "goals" }],
   "/Settings": [{ name: "Home", path: "/" }, { name: "Settings" }],
   "/HabitList": [{ name: "Home", path: "/" },{ name: "Habits", path: "/Habits" }, { name: "Habitlist", path: "/HabitList" }]
 };

@@ -32,7 +32,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
             window.location.href = '/Login'; 
           });
         } else if (user && router.pathname === '/Login') {
-          router.push("/Home").catch(error => {
+          router.push("/").catch(error => {
             console.error('Router error:', error);
             window.location.href = '/';
           });

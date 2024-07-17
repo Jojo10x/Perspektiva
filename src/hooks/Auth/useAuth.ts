@@ -39,7 +39,7 @@ export const useAuth = () => {
         });
 
         if (router.pathname === '/Login') {
-          router.push('/Home'); 
+          router.push('/'); 
         }
       } else {
         setUser(null);
