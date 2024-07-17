@@ -11,17 +11,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   console.log('Rendering _app with pathname:', useRouter().pathname);
   const { currentWeek } = useWeekNavigation();
   const router = useRouter();
-  const publicRoutes = [
-    "/login",
-    "/settings",
-    "/goals",
-    "/habitlist",
-    "/habits",
-    "/history",
-    "/plans", 
-    "/404",
-    "/[[...slug]]",
-  ];
   useEffect(() => {
     const handleRouteChange = (url: any) => {
       console.log('App is changing to: ', url)

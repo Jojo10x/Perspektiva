@@ -23,7 +23,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
       "/[[...slug]]",
     ];
 
-    const isProtected = !publicRoutes.includes(router.pathname);
+    const isProtected = !publicRoutes.some(route => router.pathname.startsWith(route.replace('[[...slug]]', '')));
 
     useEffect(() => {
       console.log('withAuth effect', { 
