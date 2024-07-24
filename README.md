@@ -1,4 +1,4 @@
-(perspektiva.vercel.app)
+https://perspektiva.vercel.app/
 
 For testing 
 Email: new@test.com
