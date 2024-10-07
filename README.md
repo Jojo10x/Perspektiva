@@ -4,6 +4,23 @@ For testing
 Email: new@test.com
 Password: test101
 
+## Login/ Signup Page
+<img width="1352" alt="Screenshot 2024-10-07 at 11 44 47 PM" src="https://github.com/user-attachments/assets/8f977549-b67d-4854-b478-2051ba11daff">
+
+## Home Page 
+<img width="1352" alt="Screenshot 2024-10-07 at 11 46 10 PM" src="https://github.com/user-attachments/assets/6465e741-329a-4269-a409-32e2104246d2">
+
+## Habits 
+<img width="1352" alt="Screenshot 2024-10-07 at 11 46 59 PM" src="https://github.com/user-attachments/assets/7e51e305-1692-4466-92b2-9c61383dfa92">
+
+## Plans
+<img width="1352" alt="Screenshot 2024-10-07 at 11 47 24 PM" src="https://github.com/user-attachments/assets/0f57f780-2725-41d8-bb6f-6d3443915016">
+<img width="1352" alt="Screenshot 2024-10-07 at 11 48 17 PM" src="https://github.com/user-attachments/assets/5af1b242-bb5d-4c96-bb72-92b2b68e71a1">
+
+## Goals 
+<img width="1352" alt="Screenshot 2024-10-07 at 11 50 24 PM" src="https://github.com/user-attachments/assets/25970f5f-89d1-4a87-9817-cdb2b8e2ac88">
+<img width="1352" alt="Screenshot 2024-10-07 at 11 51 15 PM" src="https://github.com/user-attachments/assets/34512fce-4916-48d4-887f-019f3a1933e7">
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
