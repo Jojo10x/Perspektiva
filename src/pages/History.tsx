@@ -7,7 +7,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db, auth } from "../../Firebase-config";
-import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import styles from "../styles/components/History/History.module.scss";
 import { format, isSameDay, isSameWeek, isSameMonth } from "date-fns";
 import DatePicker from "react-datepicker";
@@ -15,6 +15,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import Breadcrumb from "@/components/common/Breadcrumbs/Breadcrumb";
 import Loader from "@/components/common/Loader/Loader";
+import CompareView from '@/components/History/CompareView';
+import GraphsView from '@/components/History/GraphsView';
+import MonthsView from '@/components/History/MonthsView';
+import TimeView from '@/components/History/TimeView';
+
 const History = () => {
     const [tasks, setTasks] = useState<any[]>([]);
     const [filter, setFilter] = useState("all");
@@ -22,6 +27,7 @@ const History = () => {
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<any>(null);
+    const [activeView, setActiveView] = useState("tasks"); // New state for view selection
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -77,55 +83,112 @@ const History = () => {
     };
   
     const filteredTasks = filterTasks(tasks);
+
+    const renderContent = () => {
+      switch (activeView) {
+        case "graphs":
+          return <GraphsView />;
+        case "months":
+          return <MonthsView />;
+        case "time":
+          return <TimeView />;
+        case "compare":
+          return <CompareView />;
+        case "tasks":
+          return (
+            <>
+              <div className={styles.history__filters}>
+                <button onClick={() => setFilter("all")} className={filter === "all" ? styles.history__filter_active : ""}>All</button>
+                <button onClick={() => setFilter("day")} className={filter === "day" ? styles.history__filter_active : ""}>Day</button>
+                <button onClick={() => setFilter("week")} className={filter === "week" ? styles.history__filter_active : ""}>Week</button>
+                <button onClick={() => setFilter("month")} className={filter === "month" ? styles.history__filter_active : ""}>Month</button>
+                {filter === "day" && (
+                  <div className={styles.history__datepicker_wrapper}>
+                    <button 
+                      className={styles.history__datepicker_button}
+                      onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+                    >
+                      {selectedDate ? format(selectedDate, "MMM dd, yyyy") : "Select Date"}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    {isDatePickerOpen && (
+                      <div className={styles.history__datepicker}>
+                        <DatePicker
+                          selected={selectedDate}
+                          onChange={(date: Date | null) => {
+                            setSelectedDate(date);
+                            setIsDatePickerOpen(false);
+                          }}
+                          inline
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              <ul className={styles.history__tasks}>
+                {filteredTasks.map((task) => (
+                  <li key={task.id} className={styles.history__task}>
+                    <span className={task.completed ? styles.history__task_completed : ""}>{task.task}</span>
+                    <span>{format(task.date, "MMM dd, yyyy")}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          );
+        default:
+          return null;
+      }
+    };
   
     return (
       <div className={styles.history__container}>
         <Breadcrumb />
-        <h1 className={styles.history__header}>Task History</h1>
+        <h1 className={styles.history__header}>History Dashboard</h1>
+        
+        {/* View selection buttons */}
         <div className={styles.history__filters}>
-          <button onClick={() => setFilter("all")} className={filter === "all" ? styles.history__filter_active : ""}>All</button>
-          <button onClick={() => setFilter("day")} className={filter === "day" ? styles.history__filter_active : ""}>Day</button>
-          <button onClick={() => setFilter("week")} className={filter === "week" ? styles.history__filter_active : ""}>Week</button>
-          <button onClick={() => setFilter("month")} className={filter === "month" ? styles.history__filter_active : ""}>Month</button>
-          {filter === "day" && (
-            <div className={styles.history__datepicker_wrapper}>
-              <button 
-                className={styles.history__datepicker_button}
-                onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
-              >
-                {selectedDate ? format(selectedDate, "MMM dd, yyyy") : "Select Date"}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
-              {isDatePickerOpen && (
-                <div className={styles.history__datepicker}>
-                  <DatePicker
-                  selected={selectedDate}
-                  onChange={(date: Date | null) => {
-                    setSelectedDate(date);
-                    setIsDatePickerOpen(false);
-                  }}
-                  inline
-                />
-                </div>
-              )}
-            </div>
-          )}
+          <button 
+            onClick={() => setActiveView("tasks")} 
+            className={activeView === "tasks" ? styles.history__filter_active : ""}
+          >
+            Tasks
+          </button>
+          <button 
+            onClick={() => setActiveView("graphs")} 
+            className={activeView === "graphs" ? styles.history__filter_active : ""}
+          >
+            Graphs
+          </button>
+          <button 
+            onClick={() => setActiveView("months")} 
+            className={activeView === "months" ? styles.history__filter_active : ""}
+          >
+            Months
+          </button>
+          <button 
+            onClick={() => setActiveView("time")} 
+            className={activeView === "time" ? styles.history__filter_active : ""}
+          >
+            Time
+          </button>
+          <button 
+            onClick={() => setActiveView("compare")} 
+            className={activeView === "compare" ? styles.history__filter_active : ""}
+          >
+            Compare
+          </button>
         </div>
-        <ul className={styles.history__tasks}>
-          {filteredTasks.map((task) => (
-            <li key={task.id} className={styles.history__task}>
-              <span className={task.completed ? styles.history__task_completed : ""}>{task.task}</span>
-              <span>{format(task.date, "MMM dd, yyyy")}</span>
-            </li>
-          ))}
-        </ul>
+
+        {renderContent()}
+
         <Link href="/plans" className={styles.plans__history_button}>
-        <span>Main</span>
+          <span>Main</span>
         </Link>
       </div>
     );
-  };
+};
   
-  export default History;
+export default History;

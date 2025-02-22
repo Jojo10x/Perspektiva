@@ -1,0 +1,437 @@
+$primary-blue: #3b82f6;
+$primary-purple: #8b5cf6;
+$neutral-dark: #1e293b;
+$neutral-medium: #64748b;
+$neutral-light: #e2e8f0;
+$background-white: #fff;
+$gradient-primary: linear-gradient(135deg, $primary-blue, $primary-purple);
+$box-shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+$box-shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+$border-radius-lg: 15px;
+$border-radius-md: 10px;
+
+// Graphs View Styles
+.graphs {
+  &__container {
+    padding: 1rem;
+  }
+
+  &__row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  &__chart {
+    flex: 1;
+    background: $background-white;
+    padding: 1.5rem;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow-sm;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $box-shadow-md;
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    color: $neutral-dark;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+// Months View Styles
+.months {
+  &__container {
+    padding: 1rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  &__card {
+    background: $background-white;
+    padding: 1.5rem;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow-sm;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $box-shadow-md;
+    }
+  }
+
+  &__card_title {
+    font-size: 1.25rem;
+    color: $neutral-dark;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: $gradient-primary;
+      border-radius: 2px;
+    }
+  }
+
+  &__card_stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $neutral-light;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__stat_label {
+    color: $neutral-medium;
+    font-size: 0.9rem;
+  }
+
+  &__stat_value {
+    font-weight: 600;
+    color: $neutral-dark;
+  }
+
+  &__overview {
+    background: $background-white;
+    padding: 2rem;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow-sm;
+  }
+
+  &__overview_title {
+    font-size: 1.5rem;
+    color: $neutral-dark;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 1rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: $gradient-primary;
+      border-radius: 2px;
+    }
+  }
+
+  &__overview_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  &__overview_card {
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: $border-radius-md;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    h4 {
+      color: $neutral-medium;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    span {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $neutral-dark;
+      
+      // Add gradient effect for important numbers
+      &.highlight {
+        background: $gradient-primary;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  }
+}
+
+// Time View Styles (placeholder for future implementation)
+.time {
+  &__container {
+    padding: 1rem;
+  }
+}
+
+// Compare View Styles (placeholder for future implementation)
+.compare {
+  &__container {
+    padding: 1rem;
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .months {
+    &__overview_grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    &__card {
+      padding: 1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .months {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__overview_grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+
+// Time View Styles
+.time {
+    &__container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    &__stats_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+  
+    &__stat_card {
+      background: $background-white;
+      padding: 1.5rem;
+      border-radius: $border-radius-lg;
+      box-shadow: $box-shadow-sm;
+      text-align: center;
+  
+      h3 {
+        color: $neutral-medium;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+      }
+  
+      p {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $neutral-dark;
+        background: $gradient-primary;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  
+    &__recent_trends {
+      background: $background-white;
+      padding: 2rem;
+      border-radius: $border-radius-lg;
+      box-shadow: $box-shadow-sm;
+      margin-bottom: 2rem;
+  
+      h3 {
+        text-align: center;
+        color: $neutral-dark;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+      }
+    }
+  
+    &__trends_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+  
+      h4 {
+        color: $neutral-medium;
+        margin-bottom: 0.5rem;
+      }
+  
+      p {
+        font-weight: 600;
+        color: $neutral-dark;
+      }
+    }
+  
+    &__distribution {
+      background: $background-white;
+      padding: 2rem;
+      border-radius: $border-radius-lg;
+      box-shadow: $box-shadow-sm;
+  
+      h3 {
+        text-align: center;
+        color: $neutral-dark;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+      }
+    }
+  
+    &__distribution_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+  
+    &__distribution_item {
+      text-align: center;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: $border-radius-md;
+  
+      h4 {
+        color: $neutral-medium;
+        margin-bottom: 0.5rem;
+      }
+  
+      p {
+        font-weight: 600;
+        color: $neutral-dark;
+      }
+    }
+  }
+  
+  // Compare View Styles
+  .compare {
+    &__container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    &__month_selectors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+  
+      h3 {
+        color: $neutral-dark;
+        margin-bottom: 1rem;
+      }
+    }
+  
+    &__month_input {
+      padding: 0.75rem;
+      border: 1px solid $neutral-light;
+      border-radius: $border-radius-md;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 200px;
+  
+      &:focus {
+        outline: none;
+        border-color: $primary-blue;
+      }
+    }
+  
+    &__stats_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+  
+    &__month_stats {
+      background: $background-white;
+      padding: 2rem;
+      border-radius: $border-radius-lg;
+      box-shadow: $box-shadow-sm;
+  
+      h3 {
+        text-align: center;
+        color: $neutral-dark;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid $neutral-light;
+      }
+    }
+  
+    &__stat_item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid $neutral-light;
+  
+      &:last-child {
+        border-bottom: none;
+      }
+  
+      h4 {
+        color: $neutral-medium;
+      }
+  
+      p {
+        font-weight: 600;
+        color: $neutral-dark;
+      }
+    }
+  }
+  
+  // Responsive Adjustments
+  @media (max-width: 768px) {
+    .time, .compare {
+      &__container {
+        padding: 1rem;
+      }
+    }
+  
+    .compare {
+      &__month_selectors {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+  }
